@@ -1,7 +1,7 @@
 name: CI
 
-# Builds and tests. The downloadable packages are built by packages.yml, and only when a pull
-# request touches something that can break them; a release rebuilds everything from scratch anyway.
+# Builds and tests the community edition on Linux and Windows; the Windows job also creates
+# the portable preview after the full test suite passes.
 #
 # A change to nothing but Markdown cannot break the build, so it does not start one. That matters
 # most for edits made on GitHub straight to main, which would otherwise start two Windows jobs.

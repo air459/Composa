@@ -116,7 +116,7 @@ public static class CameraRawDialog
         Control Heading(string text) { var label = Ui.Label(text, Palette.Secondary); label.Margin = new Thickness(0, 4, 0, 0); return label; }
 
         // Light.
-        Group(CameraRawGroup.Light, "光线", Column(
+        Group(CameraRawGroup.Light, L10n.T("Light", "CameraRaw"), Column(
             Slider("Exposure", s => s.Exposure, -5, 5, (s, v) => s with { Exposure = v }, 0.05, "0.00", "Brightens or darkens the whole picture, in stops of light"),
             Slider("Contrast", s => s.Contrast, -100, 100, (s, v) => s with { Contrast = v }, tip: "Makes light and dark tones more or less different, mostly around the middle"),
             Slider("Highlights", s => s.Highlights, -100, 100, (s, v) => s with { Highlights = v }),

@@ -48,6 +48,7 @@ public static class L10n
     }
 
     public static string T(string? text) => Enabled ? Translate(text ?? "", 0) : text ?? "";
+    public static string T(string text, string context) => Enabled && Words.TryGetValue(context + "|" + text, out var translated) ? translated : T(text);
     public static object? T(object? value) => value is string text ? T(text) : value;
 
     private static string Translate(string text, int depth)

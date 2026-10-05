@@ -3,7 +3,10 @@ using Avalonia.Headless.XUnit;
 using Avalonia.Interactivity;
 using Avalonia.LogicalTree;
 using Avalonia.Threading;
+using Avalonia.VisualTree;
+using Composa.App.Dialogs;
 using Composa.Editing;
+using Composa.Filters;
 using Composa.IO;
 using SkiaSharp;
 
@@ -16,6 +19,28 @@ public class ChineseLocalizationTests
         private readonly bool previous = L10n.Enabled;
         public ChineseScope() => L10n.Enabled = true;
         public void Dispose() => L10n.Enabled = previous;
+    }
+
+    [AvaloniaFact]
+    public void Camera_raw_uses_the_lighting_context_without_changing_color_labels()
+    {
+        using var language = new ChineseScope();
+        var window = new MainWindow { Width = 1280, Height = 800 };
+        window.Show();
+        try
+        {
+            var session = EditorSession.NewCanvas(16, 16, SKColors.White);
+            window.AddSession(session);
+            _ = CameraRawDialog.Show(window, new CameraRawSettings(), session.ActiveLayer!.Pixels!, _ => { }, () => session.ActiveLayer?.Pixels);
+            Dispatcher.UIThread.RunJobs();
+            var dialog = Assert.Single(window.OwnedWindows);
+            var groups = dialog.GetVisualDescendants().OfType<Expander>().ToArray();
+            Assert.Equal(9, groups.Length);
+            Assert.Equal("光线", ((Grid)groups[0].Header!).Children.OfType<TextBlock>().Single().Text);
+            Assert.Equal("亮色", Ui.Label("Light").Text);
+            dialog.Close();
+        }
+        finally { window.Close(); }
     }
 
     [AvaloniaFact]
