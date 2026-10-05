@@ -1,0 +1,84 @@
+name: Verify and attach tested preview
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: Successful CI run containing the tested package
+        required: true
+      tag:
+        description: Existing preview tag and draft release
+        required: true
+permissions:
+  contents: write
+  actions: read
+jobs:
+  attach:
+    runs-on: windows-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      RELEASE_TAG: ${{ inputs.tag }}
+      SOURCE_RUN: ${{ inputs.run_id }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag }}
+          fetch-depth: 0
+      - name: Require the tested source and an existing draft
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          if ($env:RELEASE_TAG -notmatch '^v\d+\.\d+\.\d+-zh\.\d+$') { throw 'Invalid preview tag' }
+          if ($env:SOURCE_RUN -notmatch '^\d+$') { throw 'Invalid CI run' }
+          $run = gh api "repos/$env:GITHUB_REPOSITORY/actions/runs/$env:SOURCE_RUN" | ConvertFrom-Json
+          $sha = git rev-parse HEAD
+          if ($run.name -ne 'CI' -or $run.conclusion -ne 'success' -or $run.head_sha -ne $sha) { throw 'Package source did not pass CI at this tag' }
+          $release = gh release view $env:RELEASE_TAG --repo $env:GITHUB_REPOSITORY --json isDraft | ConvertFrom-Json
+          if (-not $release.isDraft) { throw 'Only an existing draft may receive artifacts' }
+      - uses: actions/download-artifact@v4
+        with:
+          name: chinese-win-x64
+          run-id: ${{ inputs.run_id }}
+          github-token: ${{ github.token }}
+          path: package-artifacts
+      - name: Verify checksum and packaged application startup
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $line = (Get-Content package-artifacts/sha256sums.txt | Select-Object -First 1)
+          if ($line -notmatch '^([a-fA-F0-9]{64})\s+\*?([^/\\]+\.zip)$') { throw 'Invalid checksum record' }
+          $expected = $matches[1]
+          $zip = Join-Path package-artifacts $matches[2]
+          if ((Get-FileHash $zip -Algorithm SHA256).Hash -ne $expected) { throw 'Checksum mismatch' }
+          Expand-Archive -LiteralPath $zip -DestinationPath runtime-package
+          $apps = @(Get-ChildItem runtime-package -Recurse -Filter composa.exe)
+          if ($apps.Count -ne 1) { throw 'Expected one packaged executable' }
+          $info = [Diagnostics.ProcessStartInfo]::new($apps[0].FullName, '--mcp')
+          $info.UseShellExecute = $false
+          $info.CreateNoWindow = $true
+          $info.RedirectStandardInput = $true
+          $info.RedirectStandardOutput = $true
+          $info.RedirectStandardError = $true
+          $info.WorkingDirectory = $apps[0].DirectoryName
+          $info.Environment['COMPOSA_MCP_PIPE'] = 'Composa.Release.Check.' + [Guid]::NewGuid().ToString('N')
+          $process = [Diagnostics.Process]::Start($info)
+          try {
+            $request = @{ jsonrpc='2.0'; id=1; method='initialize'; params=@{protocolVersion='2024-11-05';capabilities=@{};clientInfo=@{name='release-check';version='1.0'}} } | ConvertTo-Json -Depth 5 -Compress
+            $process.StandardInput.WriteLine($request)
+            $reply = $process.StandardOutput.ReadLineAsync()
+            if (-not $reply.Wait(15000)) { throw 'Packaged startup timed out' }
+            $response = $reply.Result | ConvertFrom-Json
+            if ($response.result.serverInfo.name -ne 'composa' -or $response.result.serverInfo.version -ne $env:RELEASE_TAG.Substring(1)) { throw 'Packaged version mismatch' }
+            $process.StandardInput.Close()
+            if (-not $process.WaitForExit(10000) -or $process.ExitCode -ne 0) { throw 'Packaged app did not exit cleanly' }
+            Write-Host "Checksum verified; packaged app initialized as $($response.result.serverInfo.version) and exited with code 0."
+          }
+          finally {
+            if (-not $process.HasExited) { $process.Kill() }
+            $process.Dispose()
+          }
+      - name: Attach verified files to the draft
+        shell: pwsh
+        run: |
+          $files = @(Get-ChildItem package-artifacts -File | ForEach-Object FullName)
+          gh release upload $env:RELEASE_TAG @files --repo $env:GITHUB_REPOSITORY
+          if ($LASTEXITCODE -ne 0) { throw 'Release upload failed' }

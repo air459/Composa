@@ -7,7 +7,9 @@
 
 [下载 Windows 便携版](https://github.com/link43223/Composa-Chinese/releases) · [报告问题](https://github.com/link43223/Composa-Chinese/issues) · [English](#english) · [上游项目](https://github.com/dvdstelt/Composa)
 
-![中文版编辑界面](docs/images/editor.png)
+![中文界面演示：修改文字并撤销](https://github.com/link43223/Composa-Chinese/releases/download/v1.4.0-zh.2/Composa-Chinese-demo.gif)
+
+[查看完整界面截图](docs/images/editor.png)
 
 这是 [Composa](https://github.com/dvdstelt/Composa) 的简体中文社区分支，基于上游 1.4.0，保留原作者及第三方版权。首个中文版定位为**公开测试版**，欢迎用实际作品验证并反馈。
 
@@ -41,7 +43,9 @@ PSD/XCF 导入以本软件支持的内容为准；复杂工程的兼容性仍需
 
 已有 277 项针对汉化的检查，覆盖菜单、混合模式、动态提示、名称保护和部分工程兼容性；渲染检查了 42 个对话框及 15 类工具选项，Windows 原生界面与独立启动也已验证。
 
-仓库保留上游功能测试，并增加中文菜单执行、动态文件名保护和中文环境工程保存/读取测试。最新源码构建及测试结果以 [Actions](https://github.com/link43223/Composa-Chinese/actions) 为准。完整图像处理、复杂 PSD/RAW、大文件和长时间使用仍需要更多实测，不能承诺所有场景均已完善。操作系统或第三方返回的技术诊断可能保留原文。
+Windows 和 Linux 各通过 **667 项完整测试**（核心 386 项、界面及集成 281 项），失败和跳过均为 0；包含新增的中文菜单操作、Camera Raw 上下文、文件名保护和工程保存/读取测试。见[该版本验证记录](https://github.com/link43223/Composa-Chinese/actions/runs/37314322168)。
+
+完整图像处理、复杂 PSD/RAW、大文件和长时间使用仍需要更多实测，不能承诺所有场景均已完善。操作系统或第三方返回的技术诊断可能保留原文。
 
 ## 免费与许可
 
