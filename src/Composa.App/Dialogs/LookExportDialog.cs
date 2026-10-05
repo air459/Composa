@@ -13,13 +13,13 @@ public static class LookDialogs
     {
         var size = Filters.LookBake.Sizes.Contains(initialSize) ? initialSize : 33;
         var rows = new List<Control> { Ui.Label("Baked into the look, bottom to top:") };
-        foreach (var name in baked) rows.Add(Indented(Ui.Label(name, Palette.Secondary)));
+        foreach (var name in baked) rows.Add(Indented(Ui.UserLabel(name, Palette.Secondary)));
         if (leftOut.Count > 0)
         {
             var heading = Ui.Label("Left out, because a look can only change colors:");
             heading.Margin = new Avalonia.Thickness(0, 8, 0, 0);
             rows.Add(heading);
-            foreach (var (name, why) in leftOut) rows.Add(Indented(Ui.Label($"{name} {why}", Palette.Secondary)));
+            foreach (var (name, why) in leftOut) rows.Add(Indented(Ui.UserLabel($"{name} {L10n.T(why)}", Palette.Secondary)));
         }
         var sizes = Ui.Combo(Filters.LookBake.Sizes, size, n => $"{n} points", n => size = n, 130);
         var sizeRow = Ui.Row(8, Ui.Label("Size"), sizes);

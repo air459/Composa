@@ -37,7 +37,7 @@ public sealed partial class EditorSession
         var document = new Document(width, height);
         var pixels = Pixels.NewColor(document.Width, document.Height);
         if (background is { } color) pixels.Erase(color);
-        var layer = Layer.Raster(background == null ? "Layer 1" : "Background", pixels);
+        var layer = Layer.Raster(DefaultNames.Text(background == null ? "Layer 1" : "Background"), pixels);
         document.Layers.Add(layer);
         document.SetActive(layer.Id);
         var session = new EditorSession(document);
@@ -60,7 +60,7 @@ public sealed partial class EditorSession
     public int Revision { get; private set; }
     /// <summary>The name shown for a project that has not been saved yet.</summary>
     public string? SuggestedName { get; set; }
-    public string Title => FilePath != null ? Path.GetFileNameWithoutExtension(FilePath) : SuggestedName ?? "Untitled";
+    public string Title => FilePath != null ? Path.GetFileNameWithoutExtension(FilePath) : SuggestedName ?? DefaultNames.Text("Untitled");
 
     // Tool state shared with the UI.
     private Tool tool = Tool.Move;
@@ -253,7 +253,7 @@ public sealed partial class EditorSession
     public EditorSession Duplicate()
     {
         if (IsEditingText) FinishText();
-        var copy = new EditorSession(document.Clone()) { SuggestedName = Title + " copy" };
+        var copy = new EditorSession(document.Clone()) { SuggestedName = Title + DefaultNames.Text(" copy") };
         copy.History.BaseName = "Duplicate";
         if (IsModified) copy.MarkModified();
         return copy;

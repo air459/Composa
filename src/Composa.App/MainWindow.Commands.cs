@@ -41,7 +41,7 @@ public sealed partial class MainWindow
 
         MenuItem Top(string header, params object[] items)
         {
-            var top = new MenuItem { Header = header };
+            var top = new MenuItem { Header = L10n.T(header) };
             foreach (var item in items) top.Items.Add(item);
             top.SubmenuOpened += (_, _) => RefreshMenuState();
             menu.Items.Add(top);
@@ -53,7 +53,7 @@ public sealed partial class MainWindow
             var guard = needsDocument ? () => HasDocument && (enabled?.Invoke() ?? true) : enabled;
             var command = new Shortcut(id ?? name.TrimEnd('…'), name.TrimEnd('…'), "Menus", gesture, run, guard);
             commands.Add(command);
-            var item = new MenuItem { Header = name, InputGesture = gesture };
+            var item = new MenuItem { Header = L10n.T(name), InputGesture = gesture };
             item.Click += (_, _) => Execute(command);
             command.Item = item;
             menuItems.Add((item, command));
@@ -61,7 +61,7 @@ public sealed partial class MainWindow
         }
         MenuItem Sub(string header, params object[] items)
         {
-            var sub = new MenuItem { Header = header };
+            var sub = new MenuItem { Header = L10n.T(header) };
             foreach (var item in items) sub.Items.Add(item);
             return sub;
         }
@@ -184,7 +184,7 @@ public sealed partial class MainWindow
             Item("Flip Layer Horizontal", () => session!.FlipLayers(true)),
             Item("Flip Layer Vertical", () => session!.FlipLayers(false)));
 
-        var grid = new MenuItem { Header = "Pixel Grid (800% and above)", ToggleType = MenuItemToggleType.CheckBox, IsChecked = canvas.ShowPixelGrid };
+        var grid = new MenuItem { Header = L10n.T("Pixel Grid (800% and above)"), ToggleType = MenuItemToggleType.CheckBox, IsChecked = canvas.ShowPixelGrid };
         grid.Click += (_, _) => { canvas.ShowPixelGrid = !canvas.ShowPixelGrid; grid.IsChecked = canvas.ShowPixelGrid; canvas.InvalidateVisual(); RememberToolSettings(); };
         // View options are flags on the session, so a checkmark follows the current tab.
         MenuItem ViewToggle(string name, Func<ViewOptions, bool> get, Func<ViewOptions, ViewOptions> flip, Key key = Key.None, KeyModifiers modifiers = KeyModifiers.None, string? id = null)
@@ -231,7 +231,7 @@ public sealed partial class MainWindow
         // A build from a repository leaves updates to its package manager, so there is nothing to switch on there.
         var autoUpdates = new MenuItem
         {
-            Header = "Check for Updates Automatically",
+            Header = L10n.T("Check for Updates Automatically"),
             ToggleType = MenuItemToggleType.CheckBox,
             IsChecked = settings.CheckForUpdates,
             IsEnabled = UpdateCheck.Channel == UpdateChannel.GitHub
@@ -244,7 +244,7 @@ public sealed partial class MainWindow
         };
 
         // The MCP server, through which an AI agent drives the editor. Off until switched on, and remembered.
-        var aiControl = new MenuItem { Header = "Allow AI Control", ToggleType = MenuItemToggleType.CheckBox, IsChecked = settings.AllowAiControl };
+        var aiControl = new MenuItem { Header = L10n.T("Allow AI Control"), ToggleType = MenuItemToggleType.CheckBox, IsChecked = settings.AllowAiControl };
         aiControl.Click += async (_, _) => { await SetAiControl(!AiControl); aiControl.IsChecked = settings.AllowAiControl; };
 
         MenuItem PanelToggle(string title)
@@ -379,10 +379,10 @@ public sealed partial class MainWindow
         foreach (var (item, isChecked) in viewToggles) item.IsChecked = session != null && isChecked(session.View);
         foreach (var (item, section) in panelToggles) item.IsChecked = dock.Section(section).State.Visible;
         if (session == null) return;
-        undoItem!.Header = session.History.CanUndo ? $"Undo {session.History.UndoName}" : "Undo";
-        redoItem!.Header = session.History.CanRedo ? $"Redo {session.History.RedoName}" : "Redo";
-        mergeItem!.Header = session.MergeTitle;
-        clipItem!.Header = session.ActiveLayer?.Clipped == true ? "Release Clipping Mask" : "Create Clipping Mask";
+        undoItem!.Header = L10n.T(session.History.CanUndo ? $"Undo {session.History.UndoName}" : "Undo");
+        redoItem!.Header = L10n.T(session.History.CanRedo ? $"Redo {session.History.RedoName}" : "Redo");
+        mergeItem!.Header = L10n.T(session.MergeTitle);
+        clipItem!.Header = L10n.T(session.ActiveLayer?.Clipped == true ? "Release Clipping Mask" : "Create Clipping Mask");
     }
 
     private void Execute(Shortcut command)
@@ -492,7 +492,7 @@ public sealed partial class MainWindow
 
     private async Task Open()
     {
-        var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions { Title = "Open", AllowMultiple = true, FileTypeFilter = [AnyOpenable, ProjectType, ImageType, RawType] });
+        var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions { Title = L10n.T("Open"), AllowMultiple = true, FileTypeFilter = [AnyOpenable, ProjectType, ImageType, RawType] });
         await OpenPaths(files.Select(f => f.TryGetLocalPath()).OfType<string>());
     }
 
@@ -550,7 +550,7 @@ public sealed partial class MainWindow
 
     private async Task PlaceImages()
     {
-        var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions { Title = "Place Images as Layers", AllowMultiple = true, FileTypeFilter = [ImageType] });
+        var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions { Title = L10n.T("Place Images as Layers"), AllowMultiple = true, FileTypeFilter = [ImageType] });
         await PlacePaths(files.Select(f => f.TryGetLocalPath()).OfType<string>(), null);
     }
 
@@ -655,7 +655,7 @@ public sealed partial class MainWindow
         {
             var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
             {
-                Title = "Save Project", SuggestedFileName = target.Title + ProjectFile.Extension, DefaultExtension = ProjectFile.Extension.TrimStart('.'), FileTypeChoices = [ProjectType]
+                Title = L10n.T("Save Project"), SuggestedFileName = target.Title + ProjectFile.Extension, DefaultExtension = ProjectFile.Extension.TrimStart('.'), FileTypeChoices = [ProjectType]
             });
             path = file?.TryGetLocalPath();
             if (path == null) return false;
@@ -719,8 +719,8 @@ public sealed partial class MainWindow
         var extension = format switch { ExportFormat.Jpeg => "jpg", ExportFormat.Webp => "webp", _ => "png" };
         var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
         {
-            Title = "Export " + extension.ToUpperInvariant(), SuggestedFileName = session.Title + "." + extension, DefaultExtension = extension,
-            FileTypeChoices = [new FilePickerFileType(extension.ToUpperInvariant() + " image") { Patterns = ["*." + extension] }]
+            Title = L10n.T("Export " + extension.ToUpperInvariant()), SuggestedFileName = session.Title + "." + extension, DefaultExtension = extension,
+            FileTypeChoices = [new FilePickerFileType(L10n.T(extension.ToUpperInvariant() + " image")) { Patterns = ["*." + extension] }]
         });
         if (file?.TryGetLocalPath() is not { } path) return;
         try
@@ -752,8 +752,8 @@ public sealed partial class MainWindow
         lookSize = size;
         var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
         {
-            Title = "Export Look", SuggestedFileName = session.Title + ".cube", DefaultExtension = "cube",
-            FileTypeChoices = [new FilePickerFileType("Color lookup table") { Patterns = ["*.cube"] }]
+            Title = L10n.T("Export Look"), SuggestedFileName = session.Title + ".cube", DefaultExtension = "cube",
+            FileTypeChoices = [new FilePickerFileType(L10n.T("Color lookup table")) { Patterns = ["*.cube"] }]
         });
         if (file?.TryGetLocalPath() is not { } path) return;
         try
@@ -1071,8 +1071,8 @@ public sealed partial class MainWindow
     {
         var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
         {
-            Title = "Save Look", SuggestedFileName = title + ".cube", DefaultExtension = "cube",
-            FileTypeChoices = [new FilePickerFileType("Color lookup table") { Patterns = ["*.cube"] }]
+            Title = L10n.T("Save Look"), SuggestedFileName = title + ".cube", DefaultExtension = "cube",
+            FileTypeChoices = [new FilePickerFileType(L10n.T("Color lookup table")) { Patterns = ["*.cube"] }]
         });
         return file?.TryGetLocalPath();
     }
@@ -1080,7 +1080,7 @@ public sealed partial class MainWindow
     /// <summary>Asks for a .cube or .3dl for the Color Lookup dialog; null when none was chosen.</summary>
     private async Task<string?> PickLookupFile()
     {
-        var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions { Title = "Load Color Lookup Table", FileTypeFilter = [LookupType] });
+        var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions { Title = L10n.T("Load Color Lookup Table"), FileTypeFilter = [LookupType] });
         return files.Count > 0 ? files[0].TryGetLocalPath() : null;
     }
 

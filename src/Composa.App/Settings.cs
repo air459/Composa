@@ -28,7 +28,7 @@ public sealed class Settings
     public bool AllowAiControl { get; set; }
 
     /// <summary>Whether to look for a newer version at launch. The manual check in the Help menu ignores this.</summary>
-    public bool CheckForUpdates { get; set; } = true;
+    public bool CheckForUpdates { get; set; } = false;
     /// <summary>When the last automatic check ran, so it happens at most once a day.</summary>
     public DateTime? LastUpdateCheck { get; set; }
     /// <summary>A version the user dismissed. Only that one stays quiet; the next is announced.</summary>

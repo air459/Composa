@@ -59,7 +59,7 @@ public static class CameraRawDialog
         // The thumbnail: click a pixel that should be neutral and Temperature and Tint follow.
         var thumb = Ui.ToAvaloniaBitmap(original, 300);
         var preview = new Image { Source = thumb, Width = thumb.PixelSize.Width, Height = thumb.PixelSize.Height, Stretch = Stretch.Uniform, Cursor = new Cursor(StandardCursorType.Cross) };
-        ToolTip.SetTip(preview, "Click a pixel that should be neutral to set the white balance from it");
+        ToolTip.SetTip(preview, L10n.T("Click a pixel that should be neutral to set the white balance from it"));
         var readout = Ui.Label("R —   G —   B —", Palette.Secondary);
         readout.FontSize = 11;
         Action<double>? setTemperature = null, setTint = null;
@@ -85,7 +85,7 @@ public static class CameraRawDialog
         Expander Group(CameraRawGroup group, string title, Control body, bool open = false)
         {
             var eye = new Button { Classes = { "flat" }, Padding = new Thickness(4), Content = Icons.Create(Icons.Eye, 13, Palette.Secondary), IsVisible = initial.Adjusts(group) };
-            ToolTip.SetTip(eye, "Switch this group off or on without clearing its sliders");
+            ToolTip.SetTip(eye, L10n.T("Switch this group off or on without clearing its sliders"));
             eye.Click += (_, _) =>
             {
                 if (!hidden.Remove(group)) hidden.Add(group);
@@ -99,7 +99,7 @@ public static class CameraRawDialog
             Grid.SetColumn(eye, 1);
             header.Children.Add(eye);
             body.Margin = new Thickness(8, 6, 0, 4);
-            var expander = new Expander { Header = header, Content = body, IsExpanded = open, HorizontalAlignment = HorizontalAlignment.Stretch, Padding = new Thickness(0) };
+            var expander = new Expander { Header = L10n.T(header), Content = body, IsExpanded = open, HorizontalAlignment = HorizontalAlignment.Stretch, Padding = new Thickness(0) };
             groups.Children.Add(expander);
             return expander;
         }
@@ -116,7 +116,7 @@ public static class CameraRawDialog
         Control Heading(string text) { var label = Ui.Label(text, Palette.Secondary); label.Margin = new Thickness(0, 4, 0, 0); return label; }
 
         // Light.
-        Group(CameraRawGroup.Light, "Light", Column(
+        Group(CameraRawGroup.Light, "光线", Column(
             Slider("Exposure", s => s.Exposure, -5, 5, (s, v) => s with { Exposure = v }, 0.05, "0.00", "Brightens or darkens the whole picture, in stops of light"),
             Slider("Contrast", s => s.Contrast, -100, 100, (s, v) => s with { Contrast = v }, tip: "Makes light and dark tones more or less different, mostly around the middle"),
             Slider("Highlights", s => s.Highlights, -100, 100, (s, v) => s with { Highlights = v }),
@@ -140,7 +140,7 @@ public static class CameraRawDialog
             temperature.Value = current.Temperature;
             tint.Value = current.Tint;
         }, 120);
-        ToolTip.SetTip(balance, "Auto balances the average color; Custom follows Temperature and Tint. Click the thumbnail to set them from one pixel.");
+        ToolTip.SetTip(balance, L10n.T("Auto balances the average color; Custom follows Temperature and Tint. Click the thumbnail to set them from one pixel."));
         Group(CameraRawGroup.Color, "Color", Column(
             Ui.Row(8, balanceLabel, balance), temperature, tint,
             Slider("Vibrance", s => s.Vibrance, -100, 100, (s, v) => s with { Vibrance = v }, tip: "Strengthens quiet colors more than strong ones, and protects skin tones", track: Controls.SliderTracks.Chroma),
@@ -287,9 +287,9 @@ public static class CameraRawDialog
         // Calibration.
         var c = initial.Calibration;
         var processes = Enumerable.Range(1, 6).ToArray();
-        var processSummary = new TextBlock { Text = CameraRawCalibration.ProcessSummary(c.Process), Foreground = Palette.Secondary, TextWrapping = TextWrapping.Wrap, MaxWidth = 310, FontSize = 11 };
+        var processSummary = new TextBlock { Text = L10n.T(CameraRawCalibration.ProcessSummary(c.Process)), Foreground = Palette.Secondary, TextWrapping = TextWrapping.Wrap, MaxWidth = 310, FontSize = 11 };
         Group(CameraRawGroup.Calibration, "Calibration", Column(
-            StyleRow("Process", Ui.Combo(processes, c.Process, p => $"Version {p}", p => { Update(current with { Calibration = current.Calibration with { Process = p } }); processSummary.Text = CameraRawCalibration.ProcessSummary(p); }, 130)),
+            StyleRow("Process", Ui.Combo(processes, c.Process, p => $"Version {p}", p => { Update(current with { Calibration = current.Calibration with { Process = p } }); processSummary.Text = L10n.T(CameraRawCalibration.ProcessSummary(p)); }, 130)),
             processSummary,
             Slider("Shadow Tint", s => s.Calibration.ShadowTint, -100, 100, (s, v) => s with { Calibration = s.Calibration with { ShadowTint = v } }, track: Controls.SliderTracks.Tint, tip: "Green to magenta in the shadows"),
             Heading("Red Primary"),
@@ -319,7 +319,7 @@ public static class CameraRawDialog
             {
                 var comment = leftOut.Count > 0 ? $"Saved from Composa's Camera Raw Filter without {string.Join(", ", leftOut)}, which a table cannot hold" : "Saved from Composa's Camera Raw Filter";
                 await Task.Run(() => File.WriteAllText(path, LookBake.Bake(grade, 33, title).ToCube(title, comment)));
-                saved.Text = leftOut.Count > 0 ? $"Saved {Path.GetFileName(path)} without {string.Join(", ", leftOut)}" : $"Saved {Path.GetFileName(path)}";
+                saved.Text = L10n.T(leftOut.Count > 0 ? $"Saved {Path.GetFileName(path)} without {string.Join(", ", leftOut)}" : $"Saved {Path.GetFileName(path)}");
             }
             catch (Exception error) when (error is IOException or UnauthorizedAccessException)
             {
@@ -327,7 +327,7 @@ public static class CameraRawDialog
             }
         });
         saveLook.IsEnabled = !LookBake.ColorOnly(Rendered()).IsIdentity;
-        ToolTip.SetTip(saveLook, "Saves the grade as a .cube lookup table for other editors. Effects, Detail and Optics change pixels by their neighbours or their place and are left out.");
+        ToolTip.SetTip(saveLook, L10n.T("Saves the grade as a .cube lookup table for other editors. Effects, Detail and Optics change pixels by their neighbours or their place and are left out."));
         var footer = Ui.Row(8, saveLook, saved);
         footer.IsVisible = saveLookPath != null;
         var body = Ui.Column(10, head, Ui.Separator(false), scroll, footer);

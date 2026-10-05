@@ -55,9 +55,9 @@ public sealed class ColorRangeWindow : DialogWindow
         var hint = new TextBlock { Foreground = Palette.Secondary, FontSize = 12, TextWrapping = TextWrapping.Wrap, MaxWidth = ColorRange.PreviewWidth };
         var fuzziness = Ui.SliderField("Fuzziness", ColorRange.DefaultFuzziness, ColorRange.MinFuzziness, ColorRange.MaxFuzziness,
             v => session.SetColorRangeFuzziness((int)v), width: ColorRange.PreviewWidth, reset: ColorRange.DefaultFuzziness);
-        ToolTip.SetTip(fuzziness, "How far a color may be from the picked ones and still be selected");
+        ToolTip.SetTip(fuzziness, L10n.T("How far a color may be from the picked ones and still be selected"));
         var invert = Ui.Check("Invert", false, v => session.SetColorRangeInvert(v));
-        ToolTip.SetTip(invert, "Select everything except those colors, such as all but a green screen");
+        ToolTip.SetTip(invert, L10n.T("Select everything except those colors, such as all but a green screen"));
         var body = Ui.Column(12, Ui.Row(6, buttons.Select(b => (Control)b.Button).ToArray()), frame, hint, fuzziness, invert);
 
         void Refresh()
@@ -65,9 +65,9 @@ public sealed class ColorRangeWindow : DialogWindow
             if (session.ColorRange is not { } edit) return;
             foreach (var (mode, button) in buttons) button.IsChecked = mode == edit.SampleMode;
             preview.Source = edit.Preview == null ? null : Ui.ToAvaloniaBitmap(edit.Preview, ColorRange.PreviewWidth * 2);
-            hint.Text = edit.HasColors
+            hint.Text = L10n.T(edit.HasColors
                 ? $"Shift-click adds a color, Alt-click takes one away. {edit.Count:N0} pixels selected."
-                : "Click the image to pick the color to select.";
+                : "Click the image to pick the color to select.");
             fuzziness.Value = edit.Fuzziness;
             invert.IsChecked = edit.Invert;
         }
@@ -84,7 +84,7 @@ public sealed class ColorRangeWindow : DialogWindow
     {
         var icon = Icons.Create(Icons.Eyedropper, 15);
         if (mode == ColorRangeSample.Sample) return icon;
-        var badge = new TextBlock { Text = mode == ColorRangeSample.Add ? "+" : "−", FontSize = 11, FontWeight = FontWeight.Bold, VerticalAlignment = VerticalAlignment.Center };
+        var badge = new TextBlock { Text = L10n.T(mode == ColorRangeSample.Add ? "+" : "−"), FontSize = 11, FontWeight = FontWeight.Bold, VerticalAlignment = VerticalAlignment.Center };
         return new StackPanel { Orientation = Orientation.Horizontal, Spacing = 1, Children = { icon, badge } };
     }
 

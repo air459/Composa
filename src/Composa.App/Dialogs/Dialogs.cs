@@ -18,7 +18,7 @@ public class DialogWindow : Window
 
     public DialogWindow(string title, Control body, string okText = "OK", bool cancellable = true)
     {
-        Title = title;
+        Title = L10n.T(title);
         SizeToContent = SizeToContent.WidthAndHeight;
         CanResize = false;
         WindowStartupLocation = WindowStartupLocation.CenterOwner;
@@ -56,15 +56,15 @@ public class DialogWindow : Window
 public static class Prompts
 {
     public static Task<bool> Confirm(Window owner, string title, string message, string okText = "OK") =>
-        new DialogWindow(title, new TextBlock { Text = message, MaxWidth = 420, TextWrapping = TextWrapping.Wrap }, okText).Ask(owner);
+        new DialogWindow(title, new TextBlock { Text = L10n.T(message), MaxWidth = 420, TextWrapping = TextWrapping.Wrap }, okText).Ask(owner);
 
     public static Task Alert(Window owner, string title, string message) =>
-        new DialogWindow(title, new TextBlock { Text = message, MaxWidth = 460, TextWrapping = TextWrapping.Wrap }, cancellable: false).Ask(owner);
+        new DialogWindow(title, new TextBlock { Text = L10n.T(message), MaxWidth = 460, TextWrapping = TextWrapping.Wrap }, cancellable: false).Ask(owner);
 
     /// <summary>Save / Don't Save / Cancel. Returns null for cancel.</summary>
     public static async Task<bool?> SaveChanges(Window owner, string name)
     {
-        var dialog = new DialogWindow("Unsaved Changes", new TextBlock { Text = $"Save changes to \"{name}\" before closing?", MaxWidth = 420, TextWrapping = TextWrapping.Wrap }, "Save");
+        var dialog = new DialogWindow("Unsaved Changes", new TextBlock { Text = L10n.T($"Save changes to \"{name}\" before closing?"), MaxWidth = 420, TextWrapping = TextWrapping.Wrap }, "Save");
         bool? result = null;
         var discard = Ui.TextButton("Don't Save", () => { result = false; dialog.Close(false); });
         ((StackPanel)((StackPanel)dialog.Content!).Children[1]).Children.Insert(0, discard);
@@ -93,6 +93,7 @@ public static class Prompts
             IsColorModelVisible = true, IsHexInputVisible = true, Width = 360, ColorSpectrumComponents = ColorSpectrumComponents.SaturationValue
         };
         if (preview != null) view.ColorChanged += (_, e) => preview(e.NewColor.ToSkia().WithAlpha(255));
+        L10n.ColorLabels(view);
         var swatches = Ui.Row(0,
             new Border { Width = 60, Height = 28, Background = new SolidColorBrush(initial.ToAvalonia()) },
             new Border { Width = 60, Height = 28, [!Border.BackgroundProperty] = view.GetObservable(ColorView.ColorProperty).Select(c => (IBrush)new SolidColorBrush(c)).ToBinding() });
@@ -229,14 +230,14 @@ public static class CanvasDialogs
         void Describe()
         {
             var enlarging = width > currentWidth || height > currentHeight;
-            note.Text = mode switch
+            note.Text = L10n.T(mode switch
             {
                 ResampleMode.Nearest => "Every pixel becomes a hard-edged block, which keeps pixel art crisp.",
                 ResampleMode.Enhance when !Composa.Vision.UpscaleModels.IsAvailable => Composa.Vision.UpscaleModels.UnavailableReason + " The picture is resampled as Automatic does.",
                 ResampleMode.Enhance when !enlarging => "Enhance only applies when enlarging; at this size the picture is resampled as Automatic does.",
                 ResampleMode.Enhance => "A model run on this machine enlarges each photo layer four times, inventing fine detail that was not there, then fits it to the new size. It takes about a second per 65,000 pixels of each layer; text and shapes are redrawn instead, and masks are resampled.",
                 _ => "Smooth when shrinking, sharp cubic when enlarging."
-            };
+            });
         }
         widthBox = Ui.Number(width, 1, DocumentLimits.MaxSide, v =>
         {
@@ -252,7 +253,7 @@ public static class CanvasDialogs
         }, width: 120);
         var resolutionBox = Ui.Number(resolution, 1, 9600, v => resolution = v, width: 120);
         var modes = Ui.Combo(ResampleModes, mode, ResampleName, v => { mode = v; Describe(); }, 160);
-        ToolTip.SetTip(modes, "How the pixels are resampled: Automatic for most pictures, Nearest Neighbor for pixel art, Enhance to invent detail with a model while enlarging");
+        ToolTip.SetTip(modes, L10n.T("How the pixels are resampled: Automatic for most pictures, Nearest Neighbor for pixel art, Enhance to invent detail with a model while enlarging"));
         Describe();
         var body = Ui.Column(12,
             Ui.Label($"Current size: {currentWidth} × {currentHeight} px", Palette.Secondary),
@@ -280,7 +281,7 @@ public static class CanvasDialogs
             timer.Stop();
             var mine = ++generation;
             var q = quality;
-            info.Text = "Measuring…";
+            info.Text = L10n.T("Measuring…");
             // Encoding a large photo takes a moment, so it runs off the UI thread; a newer request supersedes this one.
             var work = Task.Run(() =>
             {
@@ -292,7 +293,7 @@ public static class CanvasDialogs
             var (bytes, shown) = await work;
             if (closed || mine != generation) return;
             if (shown != null) preview.Source = shown;
-            info.Text = $"{flattened.Width} × {flattened.Height} px · {(bytes >= 1024 * 1024 ? $"{bytes / 1048576.0:0.0} MB" : $"{bytes / 1024.0:0} KB")}";
+            info.Text = L10n.T($"{flattened.Width} × {flattened.Height} px · {(bytes >= 1024 * 1024 ? $"{bytes / 1048576.0:0.0} MB" : $"{bytes / 1024.0:0} KB")}");
         }
 
         timer.Tick += (_, _) => Refresh();

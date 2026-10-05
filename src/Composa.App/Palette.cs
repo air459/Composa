@@ -23,7 +23,7 @@ public static class Palette
     {
         var styles = new Styles();
         styles.Resources["ComposaForeground"] = Foreground;
-        styles.Add(new Style(x => x.OfType<Window>()) { Setters = { new Setter(TemplatedControl.BackgroundProperty, Window), new Setter(TemplatedControl.FontSizeProperty, 12.5) } });
+        styles.Add(new Style(x => x.OfType<Window>()) { Setters = { new Setter(TemplatedControl.BackgroundProperty, Window), new Setter(TemplatedControl.FontSizeProperty, 12.5), new Setter(TemplatedControl.FontFamilyProperty, new FontFamily(OperatingSystem.IsWindows() ? "Microsoft YaHei UI, Microsoft YaHei, Segoe UI" : "Noto Sans CJK SC, Noto Sans, sans-serif")) } });
         styles.Add(new Style(x => x.OfType<TextBlock>()) { Setters = { new Setter(Layoutable.VerticalAlignmentProperty, VerticalAlignment.Center) } });
         // The options bar under the tabs: every control takes the slider fields' height, so combos, number boxes, buttons and fields
         // share one centre line instead of each keeping the height its theme gives it.

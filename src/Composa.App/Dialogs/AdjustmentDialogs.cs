@@ -198,7 +198,7 @@ public static class AdjustmentDialogs
             Controls.SliderTracks.Saturation(bw.TintHue), reset: defaults.TintSaturation);
         tintRows.Children.Add(tintSaturation);
         var tint = Ui.Check("Tint", bw.Tint, v => { tintRows.IsVisible = v; update(bw = bw with { Tint = v }); });
-        ToolTip.SetTip(tint, "Color the result while keeping its tones, for a sepia or a cyanotype");
+        ToolTip.SetTip(tint, L10n.T("Color the result while keeping its tones, for a sepia or a cyanotype"));
         var reset = Ui.TextButton("Reset", () =>
         {
             update(bw = new BlackAndWhiteAdjustment { Tint = bw.Tint, TintHue = bw.TintHue, TintSaturation = bw.TintSaturation });
@@ -226,7 +226,7 @@ public static class AdjustmentDialogs
             }
         }
         var preserve = Ui.Check("Preserve Luminosity", balance.PreserveLuminosity, v => update(balance = balance with { PreserveLuminosity = v }));
-        ToolTip.SetTip(preserve, "Put each pixel's brightness back afterwards, so only the color moves");
+        ToolTip.SetTip(preserve, L10n.T("Put each pixel's brightness back afterwards, so only the color moves"));
         preserve.Margin = new Thickness(0, 6, 0, 0);
         panel.Children.Add(preserve);
         return panel;
@@ -304,7 +304,7 @@ public static class AdjustmentDialogs
                 Child = Ui.Column(4, image, label), Padding = new Thickness(3), BorderThickness = new Thickness(2), CornerRadius = new CornerRadius(4),
                 Cursor = new Cursor(StandardCursorType.Hand), Background = Brushes.Transparent, Tag = name
             };
-            ToolTip.SetTip(frame, tip);
+            ToolTip.SetTip(frame, L10n.T(tip));
             frame.PointerPressed += (_, _) => { update(lookup = lookup with { Lattice = lattice, Source = name }); Refresh(); };
             chosen.Add((frame, selected));
             return frame;
@@ -407,7 +407,7 @@ public static class AdjustmentDialogs
                 var swatch = new Border { Width = 44, Height = 24, CornerRadius = new CornerRadius(3), BorderBrush = Brushes.White, BorderThickness = new Thickness(1), Cursor = new Avalonia.Input.Cursor(Avalonia.Input.StandardCursorType.Hand) };
                 void PaintSwatch() => swatch.Background = new SolidColorBrush(new SKColor(current.VignetteColor).ToAvalonia());
                 PaintSwatch();
-                ToolTip.SetTip(swatch, "Choose the vignette color");
+                ToolTip.SetTip(swatch, L10n.T("Choose the vignette color"));
                 swatch.PointerPressed += async (_, _) =>
                 {
                     if (await Prompts.Color(owner, "Vignette Color", new SKColor(current.VignetteColor)) is not { } picked) return;
@@ -424,7 +424,7 @@ public static class AdjustmentDialogs
                 Slider("Highlights", initial.VignetteHighlights, 0, 100, v => current with { VignetteHighlights = v });
                 panel.Children.Add(new TextBlock
                 {
-                    Text = "Blends the color into the edges while keeping the center. On an empty layer it paints across the whole canvas.",
+                    Text = L10n.T("Blends the color into the edges while keeping the center. On an empty layer it paints across the whole canvas."),
                     Foreground = Palette.Secondary, MaxWidth = 380, TextWrapping = TextWrapping.Wrap
                 });
                 break;
@@ -443,7 +443,7 @@ public static class AdjustmentDialogs
                 Slider("Remove Distortion", initial.Distortion, -100, 100, v => current with { Distortion = v });
                 panel.Children.Add(new TextBlock
                 {
-                    Text = "Positive straightens lines that bow outward (barrel); negative, lines that bow inward (pincushion).",
+                    Text = L10n.T("Positive straightens lines that bow outward (barrel); negative, lines that bow inward (pincushion)."),
                     Foreground = Palette.Secondary, MaxWidth = 380, TextWrapping = TextWrapping.Wrap
                 });
                 break;
@@ -455,7 +455,7 @@ public static class AdjustmentDialogs
                 Slider("Detail", initial.Painterly.Detail, 0, 100, v => current with { Painterly = current.Painterly with { Detail = v } });
                 panel.Children.Add(new TextBlock
                 {
-                    Text = "Repaints the layer in brush strokes that follow the picture's edges, the largest brush first and each smaller one only where the picture still differs. A brush size of 0 fits the brush to the picture. Gaps between strokes stay transparent.",
+                    Text = L10n.T("Repaints the layer in brush strokes that follow the picture's edges, the largest brush first and each smaller one only where the picture still differs. A brush size of 0 fits the brush to the picture. Gaps between strokes stay transparent."),
                     Foreground = Palette.Secondary, MaxWidth = 380, TextWrapping = TextWrapping.Wrap
                 });
                 break;
@@ -486,7 +486,7 @@ public static class AdjustmentDialogs
                         var swatch = new Border { Width = 44, Height = 24, CornerRadius = new CornerRadius(3), BorderBrush = Brushes.White, BorderThickness = new Thickness(1), Cursor = new Avalonia.Input.Cursor(Avalonia.Input.StandardCursorType.Hand) };
                         void Paint() => swatch.Background = new SolidColorBrush(new SKColor(get(current.Dither)).ToAvalonia());
                         Paint();
-                        ToolTip.SetTip(swatch, $"Choose the {title.ToLowerInvariant()} color");
+                        ToolTip.SetTip(swatch, L10n.T($"Choose the {title.ToLowerInvariant()} color"));
                         swatch.PointerPressed += async (_, _) =>
                         {
                             // The picker shows on the layer as it goes; Cancel puts the color back.
@@ -510,7 +510,7 @@ public static class AdjustmentDialogs
                     if (d.Style == DitherStyle.Ascii)
                     {
                         var characters = new TextBox { Text = d.Characters, Width = FieldWidth - 90, FontFamily = new FontFamily("monospace") };
-                        ToolTip.SetTip(characters, "The characters to draw with, in any order: each spot gets the one whose ink best matches its tone");
+                        ToolTip.SetTip(characters, L10n.T("The characters to draw with, in any order: each spot gets the one whose ink best matches its tone"));
                         // The property rather than TextChanged, which the box raises only after it has been through the input loop.
                         characters.PropertyChanged += (_, e) => { if (e.Property == TextBox.TextProperty) Set(dd => dd with { Characters = characters.Text ?? "" }); };
                         section.Children.Add(Ui.Row(10, Ui.Label("Characters", Palette.Secondary), characters));
@@ -536,21 +536,21 @@ public static class AdjustmentDialogs
                     {
                         shapeRow = Ui.Row(10, Ui.Label("Pixel Shape", Palette.Secondary),
                             Ui.Combo(Enum.GetValues<DitherPixelShape>(), d.PixelShape, DitherSettings.DisplayName, v => Set(dd => dd with { PixelShape = v }), 140));
-                        ToolTip.SetTip(shapeRow, "Draw each chunky pixel as a solid square, or as a round dot like a dot-matrix screen");
+                        ToolTip.SetTip(shapeRow, L10n.T("Draw each chunky pixel as a solid square, or as a round dot like a dot-matrix screen"));
                         shapeRow.IsEnabled = d.PixelSize > 1;
                         section.Children.Add(shapeRow);
                     }
                     if (d.DrawsMarks)
                     {
                         var lightOnDark = Ui.Check("Light on Dark", d.LightOnDark, v => Set(dd => dd with { LightOnDark = v }));
-                        ToolTip.SetTip(lightOnDark, "Draw the marks for the light tones on the dark color, like a glowing screen");
+                        ToolTip.SetTip(lightOnDark, L10n.T("Draw the marks for the light tones on the dark color, like a glowing screen"));
                         section.Children.Add(lightOnDark);
                     }
                 }
                 Rebuild();
                 panel.Children.Add(new TextBlock
                 {
-                    Text = "Turns the layer into dithered pixels. Diffusion and Bayer styles quantize to a number of tones; halftone shapes, Mac patterns and ASCII draw marks that cover as much of each cell as the tone calls for. Pixel Size makes chunky pixels. Density adds or removes ink before dithering.",
+                    Text = L10n.T("Turns the layer into dithered pixels. Diffusion and Bayer styles quantize to a number of tones; halftone shapes, Mac patterns and ASCII draw marks that cover as much of each cell as the tone calls for. Pixel Size makes chunky pixels. Density adds or removes ink before dithering."),
                     Foreground = Palette.Secondary, MaxWidth = 380, TextWrapping = TextWrapping.Wrap
                 });
                 break;
@@ -564,14 +564,14 @@ public static class AdjustmentDialogs
                 {
                     var plain = Composa.Vision.SubjectFinder.Resolve(current.Detect) == Composa.Vision.SubjectDetect.Backdrop;
                     tolerance.IsEnabled = plain;
-                    note.Text = plain
+                    note.Text = L10n.T(plain
                         ? "Removes the plain backdrop connected to the layer's edges by making it transparent. Raise the tolerance to take more."
-                        : "A model run on this machine finds the subject and hides everything else behind a layer mask, so a wrong edge can be painted back.";
-                    if (!plain && Composa.Vision.SubjectFinder.FallbackReason(current.Detect) is { } reason) note.Text = reason;
+                        : "A model run on this machine finds the subject and hides everything else behind a layer mask, so a wrong edge can be painted back.");
+                    if (!plain && Composa.Vision.SubjectFinder.FallbackReason(current.Detect) is { } reason) note.Text = L10n.T(reason);
                 }
                 var detect = Ui.Combo(detects, initial.Detect, Composa.Vision.SubjectFinder.DisplayName, v => { Update(current with { Detect = v }); Describe(); }, 160);
                 detect.IsEnabled = canDetect;
-                ToolTip.SetTip(detect, canDetect ? "A model for any subject or for a person, or the plain backdrop touching the layer's edges" : "A mask is edited by erasing, so only the plain backdrop applies");
+                ToolTip.SetTip(detect, L10n.T(canDetect ? "A model for any subject or for a person, or the plain backdrop touching the layer's edges" : "A mask is edited by erasing, so only the plain backdrop applies"));
                 panel.Children.Add(Ui.Row(10, Ui.Label("Detect", Palette.Secondary), detect));
                 panel.Children.Add(tolerance);
                 panel.Children.Add(note);

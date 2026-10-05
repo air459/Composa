@@ -124,7 +124,7 @@ public sealed class HistoryPanel : UserControl
         var brush = ahead ? Palette.Secondary : Palette.Foreground;
         var name = new TextBlock
         {
-            Text = step.Name, Foreground = brush, FontStyle = ahead ? FontStyle.Italic : FontStyle.Normal,
+            Text = L10n.T(step.Name), Foreground = brush, FontStyle = ahead ? FontStyle.Italic : FontStyle.Normal,
             TextTrimming = TextTrimming.CharacterEllipsis, Margin = new Thickness(8, 0, 0, 0)
         };
         var grid = new Grid { ColumnDefinitions = new ColumnDefinitions("Auto,*,Auto") };
@@ -136,7 +136,7 @@ public sealed class HistoryPanel : UserControl
             var disk = Icons.Create(Icons.Disk, 12, Palette.Secondary);
             // The icon itself ignores the pointer, so the tip sits on a box around it.
             var mark = new Border { Background = Brushes.Transparent, Child = disk, Margin = new Thickness(6, 0, 0, 0) };
-            ToolTip.SetTip(mark, "This is the state in the file");
+            ToolTip.SetTip(mark, L10n.T("This is the state in the file"));
             Grid.SetColumn(mark, 2);
             grid.Children.Add(mark);
         }

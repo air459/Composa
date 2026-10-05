@@ -34,18 +34,18 @@ public static partial class AppPaths
         switch (platform)
         {
             case Platform.Windows:
-                return new(Path.Combine(folder(Environment.SpecialFolder.ApplicationData), AppInfo.Name),
-                           Path.Combine(folder(Environment.SpecialFolder.LocalApplicationData), AppInfo.Name));
+                return new(Path.Combine(folder(Environment.SpecialFolder.ApplicationData), AppInfo.Name + ".zh-CN"),
+                           Path.Combine(folder(Environment.SpecialFolder.LocalApplicationData), AppInfo.Name + ".zh-CN"));
             case Platform.MacOS:
-                return new(Path.Combine(home, "Library", "Application Support", AppInfo.Name),
-                           Path.Combine(home, "Library", "Caches", AppInfo.Name));
+                return new(Path.Combine(home, "Library", "Application Support", AppInfo.Name + ".zh-CN"),
+                           Path.Combine(home, "Library", "Caches", AppInfo.Name + ".zh-CN"));
             default:
                 // Lowercase, as every other program in ~/.config is.
                 var config = variable("XDG_CONFIG_HOME");
                 if (string.IsNullOrEmpty(config)) config = Path.Combine(home, ".config");
                 var cache = variable("XDG_CACHE_HOME");
                 if (string.IsNullOrEmpty(cache)) cache = Path.Combine(home, ".cache");
-                return new(Path.Combine(config, "composa"), Path.Combine(cache, "composa"));
+                return new(Path.Combine(config, "composa.zh-CN"), Path.Combine(cache, "composa.zh-CN"));
         }
     }
 

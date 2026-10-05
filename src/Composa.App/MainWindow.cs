@@ -42,7 +42,7 @@ public sealed partial class MainWindow : Window
 
     public MainWindow()
     {
-        Title = "Composa";
+        Title = L10n.T("Composa");
         Width = Math.Clamp(settings.WindowWidth, 800, 10000);
         Height = Math.Clamp(settings.WindowHeight, 520, 10000);
         if (settings.Maximized) WindowState = WindowState.Maximized;
@@ -234,7 +234,7 @@ public sealed partial class MainWindow : Window
         tabs.Children.Clear();
         foreach (var item in sessions)
         {
-            var label = Ui.Label(item.Title + (item.IsModified ? " •" : ""), item == session ? Palette.Foreground : Palette.Secondary);
+            var label = Ui.UserLabel(item.Title + (item.IsModified ? " •" : ""), item == session ? Palette.Foreground : Palette.Secondary);
             var close = new Button { Classes = { "flat" }, Padding = new Thickness(3), Content = Icons.Create(Icons.Close, 10), VerticalAlignment = VerticalAlignment.Center };
             close.Click += (_, e) => { _ = CloseSession(item); e.Handled = true; };
             var tab = new Border
@@ -252,7 +252,7 @@ public sealed partial class MainWindow : Window
             tab.ContextMenu = TabMenu(item);
             tabs.Children.Add(tab);
         }
-        Title = session == null ? "Composa" : $"{session.Title}{(session.IsModified ? " •" : "")} - Composa";
+        Title = L10n.T(session == null ? "Composa" : $"{session.Title}{(session.IsModified ? " •" : "")} - Composa");
     }
 
     /// <summary>A click or a scrub in the History panel. Like any command it waits for a drag on the canvas to end.</summary>
@@ -272,7 +272,7 @@ public sealed partial class MainWindow : Window
     {
         MenuItem Entry(string header, Action run, bool enabled = true)
         {
-            var entry = new MenuItem { Header = header, IsEnabled = enabled };
+            var entry = new MenuItem { Header = L10n.T(header), IsEnabled = enabled };
             entry.Click += (_, _) => run();
             return entry;
         }
@@ -380,7 +380,7 @@ public sealed partial class MainWindow : Window
     {
         var connected = aiControl?.Connections ?? 0;
         aiText.IsVisible = connected > 0;
-        aiText.Text = connected == 1 ? "AI connected" : $"{connected} AIs connected";
+        aiText.Text = L10n.T(connected == 1 ? "AI connected" : $"{connected} AIs connected");
     }
 
     private async void OnClosing(object? sender, WindowClosingEventArgs e)
@@ -492,8 +492,8 @@ public sealed partial class MainWindow : Window
         }
 
         foregroundSwatch.Cursor = backgroundSwatch.Cursor = new Cursor(StandardCursorType.Hand);
-        ToolTip.SetTip(foregroundSwatch, "Foreground color");
-        ToolTip.SetTip(backgroundSwatch, "Background color");
+        ToolTip.SetTip(foregroundSwatch, L10n.T("Foreground color"));
+        ToolTip.SetTip(backgroundSwatch, L10n.T("Background color"));
         foregroundSwatch.PointerPressed += (_, _) => _ = PickColor(foreground: true);
         backgroundSwatch.PointerPressed += (_, _) => _ = PickColor(foreground: false);
         backgroundSwatch.Margin = new Thickness(14, 14, 0, 0);
@@ -548,7 +548,7 @@ public sealed partial class MainWindow : Window
             box.Children.Add(heading);
             foreach (var path in recent)
             {
-                var link = new Button { Classes = { "flat" }, Content = Ui.Label(Path.GetFileName(path.TrimEnd(Path.DirectorySeparatorChar)), Palette.Accent), HorizontalAlignment = HorizontalAlignment.Center, Padding = new Thickness(8, 3) };
+                var link = new Button { Classes = { "flat" }, Content = Ui.UserLabel(Path.GetFileName(path.TrimEnd(Path.DirectorySeparatorChar)), Palette.Accent), HorizontalAlignment = HorizontalAlignment.Center, Padding = new Thickness(8, 3) };
                 ToolTip.SetTip(link, path);
                 link.Click += (_, _) => _ = OpenPaths([path]);
                 box.Children.Add(link);
@@ -623,13 +623,13 @@ public sealed partial class MainWindow : Window
         if (session == null)
         {
             zoomText.Text = "";
-            sizeText.Text = "";
-            hintText.Text = "Ready when you are";
+            sizeText.Text = L10n.T("");
+            hintText.Text = L10n.T("Ready when you are");
             return;
         }
         zoomText.Text = canvas.Zoom >= 0.1 ? $"{canvas.Zoom * 100:0.#}%" : $"{canvas.Zoom * 100:0.##}%";
-        sizeText.Text = $"{session.Document.Width} × {session.Document.Height} px · {session.Document.Resolution:0.#} ppi · sRGB";
-        hintText.Text = problem ?? (saving.Count > 0 ? "Saving " + string.Join(", ", saving.Values.Select(w => Path.GetFileName(w.Path))) + "…" : note ?? Hint(session));
+        sizeText.Text = L10n.T($"{session.Document.Width} × {session.Document.Height} px · {session.Document.Resolution:0.#} ppi · sRGB");
+        hintText.Text = L10n.T(problem ?? (saving.Count > 0 ? "Saving " + string.Join(", ", saving.Values.Select(w => Path.GetFileName(w.Path))) + "…" : note ?? Hint(session)));
         hintText.Foreground = problem != null ? new SolidColorBrush(Color.Parse("#FFB454")) : Palette.Secondary;
     }
 

@@ -1,0 +1,23 @@
+name: 中文版问题
+description: 报告翻译、界面或使用问题
+title: "[问题] "
+body:
+  - type: input
+    id: version
+    attributes:
+      label: 版本和操作系统
+      placeholder: 例如 1.4.0-zh.1 / Windows 11 x64
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      description: 操作过程，以及预期和实际结果
+    validations:
+      required: true
+  - type: textarea
+    id: translation
+    attributes:
+      label: 翻译建议或补充信息
+      description: 可提供界面位置、原文、建议译文和截图；请移除个人信息。

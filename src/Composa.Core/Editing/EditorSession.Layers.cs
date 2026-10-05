@@ -51,7 +51,7 @@ public sealed partial class EditorSession
 
     public Layer AddBlankLayer()
     {
-        var layer = Layer.Raster(document.UniqueName("Layer"), Pixels.NewColor(document.Width, document.Height));
+        var layer = Layer.Raster(document.UniqueName(DefaultNames.Text("Layer")), Pixels.NewColor(document.Width, document.Height));
         Apply("New Layer", () => document.InsertAboveActive(layer));
         LayersChanged?.Invoke();
         return layer;
@@ -78,7 +78,7 @@ public sealed partial class EditorSession
     public Layer AddAdjustmentLayer(Adjustment adjustment, bool commit = true)
     {
         var layer = Layer.ForAdjustment(adjustment);
-        layer.Name = document.UniqueName(adjustment.DisplayName);
+        layer.Name = document.UniqueName(DefaultNames.Text(adjustment.DisplayName));
         Begin("New Adjustment Layer");
         document.InsertAboveActive(layer);
         if (document.Selection != null) layer.Mask = Pixels.Clone(document.Selection);
@@ -134,7 +134,7 @@ public sealed partial class EditorSession
             var copies = roots.Select(layer =>
             {
                 var copy = layer.Clone(newIds: true);
-                copy.Name = layer.Name + " copy";
+                copy.Name = layer.Name + DefaultNames.Text(" copy");
                 return (Original: layer, Copy: copy);
             }).ToList();
             if (copies.Count == 1)
@@ -210,7 +210,7 @@ public sealed partial class EditorSession
         {
             var top = roots[^1];
             var siblings = document.SiblingsOf(top.Id)!;
-            var group = Layer.Group(document.UniqueName("Folder"));
+            var group = Layer.Group(document.UniqueName(DefaultNames.Text("Folder")));
             siblings.Insert(siblings.IndexOf(top) + 1, group);
             foreach (var layer in roots)
             {
@@ -361,7 +361,7 @@ public sealed partial class EditorSession
     {
         Apply("Stamp Visible", () =>
         {
-            var stamp = Layer.Raster(document.UniqueName("Merged Layer"), DocumentRenderer.Flatten(document));
+            var stamp = Layer.Raster(document.UniqueName(DefaultNames.Text("Merged Layer")), DocumentRenderer.Flatten(document));
             document.Layers.Add(stamp);
             document.SetActive(stamp.Id);
             TrimToContent(stamp);
@@ -420,7 +420,7 @@ public sealed partial class EditorSession
     {
         Apply("Flatten Image", () =>
         {
-            var merged = Layer.Raster("Background", DocumentRenderer.Flatten(document));
+            var merged = Layer.Raster(DefaultNames.Text("Background"), DocumentRenderer.Flatten(document));
             document.Layers.Clear();
             document.Layers.Add(merged);
             document.SetActive(merged.Id);

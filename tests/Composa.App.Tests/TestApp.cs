@@ -9,7 +9,11 @@ namespace Composa.App.Tests;
 
 public static class TestApp
 {
-    static TestApp() => Settings.Persist = false;
+    static TestApp()
+    {
+        Settings.Persist = false;
+        L10n.Enabled = false;
+    }
 
     public static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<App>()
         .UseSkia()

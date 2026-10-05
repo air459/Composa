@@ -48,7 +48,7 @@ public sealed class UpdateNotice : Border
         // Built here rather than through Ui.IconButton, which leaves the icon its default muted
         // foreground: readable on a dark panel, nearly invisible on this one.
         dismiss = new Button { Content = Icons.Create(Icons.Close, 11, Brushes.White), Classes = { "flat" }, Margin = new Thickness(8, 0, 0, 0) };
-        ToolTip.SetTip(dismiss, "Dismiss");
+        ToolTip.SetTip(dismiss, L10n.T("Dismiss"));
         dismiss.Click += (_, _) => Hide();
         Grid.SetColumn(dismiss, 2);
         row.Children.Add(dismiss);
@@ -60,7 +60,7 @@ public sealed class UpdateNotice : Border
         commandRow.Children.Add(command);
         copy = Ui.TextButton("Copy", () => _ = CopyCommand());
         copy.Margin = new Thickness(8, 0, 0, 0);
-        ToolTip.SetTip(copy, "Copy the command, for a software centre that will not install a downloaded package");
+        ToolTip.SetTip(copy, L10n.T("Copy the command, for a software centre that will not install a downloaded package"));
         Grid.SetColumn(copy, 2);
         commandRow.Children.Add(copy);
 
@@ -112,9 +112,9 @@ public sealed class UpdateNotice : Border
             dismiss.IsVisible = false;
             progress.IsVisible = true;
         }
-        message.Text = received.Total is > 0 and var total
+        message.Text = L10n.T(received.Total is > 0 and var total
             ? $"Downloading Composa {version}… {Megabytes(received.Received)} of {Megabytes(total)} MB"
-            : $"Downloading Composa {version}… {Megabytes(received.Received)} MB";
+            : $"Downloading Composa {version}… {Megabytes(received.Received)} MB");
         fraction = received.Total is > 0 and var whole ? Math.Clamp((double)received.Received / whole, 0, 1) : 0;
         LayOutProgress();
     }
@@ -131,7 +131,7 @@ public sealed class UpdateNotice : Border
         if (terminalCommand != null)
         {
             command.Text = terminalCommand;
-            copy.Content = "Copy";
+            copy.Content = L10n.T("Copy");
             commandRow.IsVisible = true;
         }
     }
@@ -164,8 +164,8 @@ public sealed class UpdateNotice : Border
     private void Enter(Phase phase, string text)
     {
         State = phase;
-        message.Text = text;
-        ToolTip.SetTip(message, text); // A long reason or path is cut off in the strip, but not here.
+        message.Text = L10n.T(text);
+        ToolTip.SetTip(message, L10n.T(text)); // A long reason or path is cut off in the strip, but not here.
         buttons.Children.Clear();
         dismiss.IsVisible = true;
         commandRow.IsVisible = false;
@@ -177,7 +177,7 @@ public sealed class UpdateNotice : Border
     private void AddButton(string label, Action click, string? tip = null)
     {
         var button = Ui.TextButton(label, click);
-        if (tip != null) ToolTip.SetTip(button, tip);
+        if (tip != null) ToolTip.SetTip(button, L10n.T(tip));
         buttons.Children.Add(button);
     }
 
@@ -187,7 +187,7 @@ public sealed class UpdateNotice : Border
     {
         if (TopLevel.GetTopLevel(this)?.Clipboard is not { } clipboard || command.Text is not { } text) return;
         await clipboard.SetTextAsync(text);
-        copy.Content = "Copied";
+        copy.Content = L10n.T("Copied");
     }
 
     /// <summary>Megabytes as GitHub counts them on the release page, a million bytes, to one decimal.</summary>

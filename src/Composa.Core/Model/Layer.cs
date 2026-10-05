@@ -288,7 +288,7 @@ public sealed record TextStyle
     public string LayerName()
     {
         var flattened = string.Join(' ', Text.Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries));
-        return flattened.Length == 0 ? "Text" : flattened.Length > 40 ? flattened[..40] : flattened;
+        return flattened.Length == 0 ? Composa.Editing.DefaultNames.Text("Text") : flattened.Length > 40 ? flattened[..40] : flattened;
     }
 }
 

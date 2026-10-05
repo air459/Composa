@@ -42,16 +42,16 @@ public static class GridSettingsDialog
             subdivisionsBox.Value = g.Subdivisions;
             updating = false;
             swatch.Background = new SolidColorBrush(a.Color.ToAvalonia());
-            note.Text = g.IsValid
+            note.Text = L10n.T(g.IsValid
                 ? $"A subdivision every {g.Step:0.##} pixels."
-                : $"Use gridlines every {LayoutGrid.MinSpacing}-{LayoutGrid.MaxSpacing} pixels and {LayoutGrid.MinSubdivisions}-{LayoutGrid.MaxSubdivisions} subdivisions, no more than the pixels between gridlines.";
+                : $"Use gridlines every {LayoutGrid.MinSpacing}-{LayoutGrid.MaxSpacing} pixels and {LayoutGrid.MinSubdivisions}-{LayoutGrid.MaxSubdivisions} subdivisions, no more than the pixels between gridlines.");
             note.Foreground = g.IsValid ? Palette.Secondary : Warning;
             dialog.CanAccept = g.IsValid;
             if (g.IsValid) preview(g, a);
         }
 
         presetBox = Ui.Combo(presets, appearance.Preset, GridAppearance.DisplayName, p => { if (!updating) Change(appearance with { Preset = p }, grid); }, 150);
-        ToolTip.SetTip(swatch, "Choose a custom grid color");
+        ToolTip.SetTip(swatch, L10n.T("Choose a custom grid color"));
         swatch.PointerPressed += async (_, _) =>
         {
             // The picker shows on the canvas as it goes; a color other than the one in use becomes the Custom color.

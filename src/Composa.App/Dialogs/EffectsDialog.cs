@@ -30,7 +30,7 @@ public static class EffectsDialog
             var swatch = new Border { Width = 44, Height = 24, CornerRadius = new CornerRadius(3), BorderBrush = Brushes.White, BorderThickness = new Thickness(1), Cursor = new Avalonia.Input.Cursor(Avalonia.Input.StandardCursorType.Hand) };
             void Paint() => swatch.Background = new SolidColorBrush(new SKColor(effects.ColorOf(kind) ?? 0xFF000000).ToAvalonia());
             Paint();
-            ToolTip.SetTip(swatch, LayerEffects.DisplayName(kind) + " color");
+            ToolTip.SetTip(swatch, L10n.T(LayerEffects.DisplayName(kind) + " color"));
             swatch.PointerPressed += async (_, _) =>
             {
                 if (TopLevel.GetTopLevel(swatch) is not Window window || await Prompts.Color(window, LayerEffects.DisplayName(kind) + " Color", new SKColor(effects.ColorOf(kind) ?? 0xFF000000)) is not { } picked) return;

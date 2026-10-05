@@ -1,158 +1,29 @@
-name: Release
-
-# Publishing a release on GitHub is the trigger, and GitHub creates the tag itself, so a release
-# never depends on a tag being pushed from a terminal. MinVer then derives the version from that
-# tag, which is why every checkout below needs the full history.
-#
-# A draft can be filled first instead, with a dispatch naming its tag. That avoids the window where
-# a published release is live with no downloads attached to it, which is worse than no release,
-# because the update check will eventually point people at whatever the latest release is.
+name: Build Chinese portable preview
 on:
-  release:
-    types: [published]
   workflow_dispatch:
-    inputs:
-      draft_tag:
-        description: "Attach the artifacts to this draft release, e.g. v0.2.0. Leave empty to rehearse the build without uploading anything."
-        required: false
-        default: ""
-
 permissions:
-  contents: write # Needed to attach artifacts to the release.
-
-concurrency:
-  group: release-${{ github.event.release.tag_name || github.ref }}
-  cancel-in-progress: false # Never interrupt a release build half-way.
-
+  contents: read
 jobs:
-  linux:
-    # 22.04 rather than latest: a self-contained build links against the build machine's glibc, and
-    # 24.04 would produce binaries that refuse to start on Debian 12 or Ubuntu 22.04.
-    #
-    # arm64 is built on an arm64 runner rather than cross-compiled, so appimagetool and the glibc
-    # floor behave the same way on both architectures.
-    runs-on: ${{ matrix.runner }}
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - rid: linux-x64
-            runner: ubuntu-22.04
-          - rid: linux-arm64
-            runner: ubuntu-22.04-arm
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # MinVer needs the tags, or it versions everything 0.0.0.
-
-      - uses: actions/setup-dotnet@v4
-        with:
-          global-json-file: global.json
-
-      # rpmbuild is not on an Ubuntu runner by default. The .deb is built with ar and tar, which
-      # are, so dpkg is not needed.
-      - name: Install packaging tools
-        run: sudo apt-get update && sudo apt-get install -y rpm desktop-file-utils
-
-      # A draft release has no git tag yet, because GitHub only creates one when a release is
-      # published. MinVer therefore has nothing to read and would version the artifacts
-      # 0.0.0-alpha.0.N. The tag the draft is going to get is the version, so it is supplied
-      # through MinVer's own override. Every dotnet invocation below inherits it.
-      - name: Take the version from the draft tag
-        if: inputs.draft_tag != ''
-        env:
-          DRAFT_TAG: ${{ inputs.draft_tag }}
-        run: echo "MinVerVersionOverride=${DRAFT_TAG#v}" >> "$GITHUB_ENV"
-
-      - name: Build every package
-        run: scripts/package/all.sh ${{ matrix.rid }} dist
-
-      - name: Check what was produced
-        run: |
-          ls -lh dist/
-          test -n "$(find dist -name '*.tar.gz')"   || { echo "no tarball";  exit 1; }
-          test -n "$(find dist -name '*.deb')"      || { echo "no deb";      exit 1; }
-          test -n "$(find dist -name '*.rpm')"      || { echo "no rpm";      exit 1; }
-          test -n "$(find dist -name '*.AppImage')" || { echo "no AppImage"; exit 1; }
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: composa-${{ matrix.rid }}
-          path: dist/*
-          if-no-files-found: error
-
-  # Both architectures build on an x64 runner: .NET cross-publishes arm64 and every native library
-  # arrives prebuilt, so nothing here depends on the runner's own architecture the way the Linux
-  # glibc floor does.
   windows:
     runs-on: windows-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        rid: [win-x64, win-arm64]
-    defaults:
-      run:
-        shell: bash
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # MinVer needs the tags, or it versions everything 0.0.0.
-
+          fetch-depth: 0
       - uses: actions/setup-dotnet@v4
         with:
           global-json-file: global.json
-
-      - name: Install Inno Setup
-        shell: pwsh
-        run: if (-not (Test-Path "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe")) { choco install innosetup --yes --no-progress }
-
-      # See the Linux job: a draft has no tag yet, so MinVer is told the version it is going to get.
-      - name: Take the version from the draft tag
-        if: inputs.draft_tag != ''
-        env:
-          DRAFT_TAG: ${{ inputs.draft_tag }}
-        run: echo "MinVerVersionOverride=${DRAFT_TAG#v}" >> "$GITHUB_ENV"
-
-      - name: Build the zip and the installer
-        run: scripts/package/windows.sh ${{ matrix.rid }} dist
-
-      - name: Check what was produced
+      - name: Build, test and package Windows x64
+        shell: bash
         run: |
-          ls -lh dist/
-          test -n "$(find dist -name '*-${{ matrix.rid }}.zip')"       || { echo "no zip";       exit 1; }
-          test -n "$(find dist -name '*-${{ matrix.rid }}-setup.exe')" || { echo "no installer"; exit 1; }
-
+          scripts/models/fetch.sh
+          dotnet build --configuration Release
+          dotnet test --configuration Release --no-build
+          scripts/package/windows.sh win-x64 dist --no-installer
+          cd dist
+          sha256sum *.zip > sha256sums.txt
       - uses: actions/upload-artifact@v4
         with:
-          name: composa-${{ matrix.rid }}
+          name: chinese-win-x64
           path: dist/*
           if-no-files-found: error
-
-  # macOS artifacts arrive in Phase 4. They are deliberately absent rather than stubbed, so a green
-  # run means every artifact this workflow claims to build was built.
-
-  publish:
-    needs: [linux, windows]
-    runs-on: ubuntu-22.04
-    # Either a real release, or a dispatch that named a draft to fill.
-    if: github.event_name == 'release' || inputs.draft_tag != ''
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          path: artifacts
-
-      - name: Collect artifacts and checksum them
-        run: |
-          mkdir -p upload
-          find artifacts -type f -exec mv {} upload/ \;
-          cd upload
-          sha256sum * > sha256sums.txt
-          cat sha256sums.txt
-
-      # A draft is addressable by the tag name it will eventually get, so the same command serves
-      # both paths.
-      - name: Attach to the release
-        env:
-          GH_TOKEN: ${{ github.token }}
-          TAG: ${{ github.event.release.tag_name || inputs.draft_tag }}
-        run: gh release upload "$TAG" upload/* --clobber --repo "${{ github.repository }}"

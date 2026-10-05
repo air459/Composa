@@ -70,4 +70,9 @@
       <ResolvedFileToPublish Remove="@(ResolvedFileToPublish)" Condition="'%(Extension)' == '.pdb'" />
     </ItemGroup>
   </Target>
+  <ItemGroup>
+    <EmbeddedResource Include="Localization/zh-cn.tsv" LogicalName="Composa.ZhCN.Terms" />
+    <EmbeddedResource Include="Localization/zh-prose.tsv" LogicalName="Composa.ZhCN.Prose" />
+    <EmbeddedResource Include="Localization/zh-errors.tsv" LogicalName="Composa.ZhCN.Errors" />
+  </ItemGroup>
 </Project>

@@ -83,6 +83,19 @@ jobs:
       - name: Test
         run: dotnet test --configuration Release --no-build
 
+      - name: Package the Chinese Windows preview
+        shell: bash
+        run: |
+          scripts/package/windows.sh win-x64 dist --no-installer
+          cd dist
+          sha256sum *.zip > sha256sums.txt
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chinese-win-x64
+          path: dist/*
+          if-no-files-found: error
+
       - name: Upload screenshots
         if: failure()
         uses: actions/upload-artifact@v4

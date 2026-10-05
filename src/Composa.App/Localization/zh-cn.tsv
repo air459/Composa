@@ -1,0 +1,606 @@
+OK	确定
+Cancel	取消
+Save	保存
+Don't Save	不保存
+Create	创建
+Apply	应用
+Done	完成
+Close	关闭
+Delete	删除
+Copy	复制
+Cut	剪切
+Paste	粘贴
+Open	打开
+Import	导入
+Export	导出
+Reset	重置
+Restore Defaults	恢复默认设置
+None	无
+Custom	自定
+Auto	自动
+Automatic	自动
+Manual	手动
+Preview	预览
+Before / After	前后对比
+_File	文件(_F)
+_Edit	编辑(_E)
+_Select	选择(_S)
+_Image	图像(_I)
+F_ilter	滤镜(_T)
+_Layer	图层(_L)
+_View	视图(_V)
+_Window	窗口(_W)
+_Help	帮助(_H)
+New Canvas	新建画布
+Open Recent	打开最近文件
+Place Images as Layers	置入图像为图层
+Save As	另存为
+Export PNG	导出 PNG
+Export JPEG	导出 JPEG
+Export WebP	导出 WebP
+Export Look as .cube	导出色彩预设为 .cube
+Close Project	关闭工程
+Quit	退出
+Undo	撤销
+Redo	重做
+Copy Merged	拷贝合并
+Paste Special	选择性粘贴
+Paste in Place	原位粘贴
+Paste Into	贴入
+Fill with Foreground Color	使用前景色填充
+Fill with Background Color	使用背景色填充
+Fill	填充
+Clear	清除
+Content-Aware Fill	内容识别填充
+Keyboard Shortcuts	键盘快捷键
+All	全部
+Select All	全选
+Deselect	取消选择
+Inverse	反向
+Select Inverse	选择反向
+Layer's Pixels	图层像素
+Layer's Mask	图层蒙版
+Subject	主体
+Select Subject	选择主体
+Color Range	色彩范围
+Expand	扩展
+Contract	收缩
+Feather	羽化
+Expand Selection	扩展选区
+Contract Selection	收缩选区
+Feather Selection	羽化选区
+Expand by	扩展量
+Contract by	收缩量
+Feather radius	羽化半径
+Curves	曲线
+Levels	色阶
+Hue/Saturation	色相/饱和度
+Brightness/Contrast	亮度/对比度
+Exposure	曝光度
+Black & White	黑白
+Color Balance	色彩平衡
+Gradient Map	渐变映射
+Color Lookup	颜色查找
+Grain	颗粒
+Invert	反相
+Auto Levels	自动色阶
+Remove Background	移除背景
+Canvas Size	画布大小
+Image Size	图像大小
+Trim	裁切
+Reveal All	显示全部
+Duplicate	复制
+Rotate Canvas 90° Clockwise	顺时针旋转画布 90°
+Rotate Canvas 90° Counterclockwise	逆时针旋转画布 90°
+Flip Canvas Horizontal	水平翻转画布
+Flip Canvas Vertical	垂直翻转画布
+Merge Down	向下合并
+Merge Group	合并组
+Merge Layers	合并图层
+Merge Visible	合并可见图层
+Stamp Visible	盖印可见图层
+Flatten Image	拼合图像
+Create Clipping Mask	创建剪贴蒙版
+Release Clipping Mask	释放剪贴蒙版
+New Layer	新建图层
+New Adjustment Layer	新建调整图层
+Edit Adjustment	编辑调整
+Transform Layer	变换图层
+Duplicate Layer / Layer via Copy	复制图层 / 通过拷贝的图层
+Rename Layer	重命名图层
+Delete Layer	删除图层
+Delete Layers	删除图层
+Delete Selected Layers	删除所选图层
+Add Layer Mask	添加图层蒙版
+Invert Layer Mask	反相图层蒙版
+Apply Layer Mask	应用图层蒙版
+Delete Layer Mask	删除图层蒙版
+Enable Layer Mask	启用图层蒙版
+Disable Layer Mask	停用图层蒙版
+Group Selected Layers	将所选图层编组
+Group Layers	图层编组
+Ungroup	取消编组
+Ungroup Layers	取消图层编组
+Move Layer Up	上移图层
+Move Layer Down	下移图层
+Layer Effects	图层样式
+Delete Effect	删除效果
+Edit Text	编辑文字
+Rasterize Layer	栅格化图层
+Enhance Resolution	增强分辨率
+Rotate Layer 90° Clockwise	顺时针旋转图层 90°
+Rotate Layer 90° Counterclockwise	逆时针旋转图层 90°
+Rotate Layer 180°	旋转图层 180°
+Rotate Layer	旋转图层
+Flip Layer Horizontal	水平翻转图层
+Flip Layer Vertical	垂直翻转图层
+Pixel Grid (800% and above)	像素网格（缩放至 800% 及以上）
+Fit Canvas	画布适合窗口
+Fit	适合窗口
+Actual Pixels	实际像素
+Zoom In	放大
+Zoom Out	缩小
+Show Transform Controls	显示变换控件
+Rulers	标尺
+Show	显示
+Hide	隐藏
+Grid	网格
+Guides	参考线
+Grid Settings	网格设置
+Snap	对齐
+Snap To	对齐到
+Layers	图层
+Document Bounds	文档边界
+Lock Guides	锁定参考线
+Clear Guides	清除参考线
+Check for Updates Automatically	自动检查更新
+Allow AI Control	允许 AI 控制
+History	历史记录
+Check for Updates	检查更新
+About Composa	关于 Composa
+Menus	菜单
+Tools and Canvas	工具与画布
+Search shortcuts	搜索快捷键
+Press keys…	请按下快捷键…
+Marquee tool (again switches Rectangle and Ellipse)	选框工具（再次按下切换矩形与椭圆）
+Lasso tool (again switches Freehand and Polygonal)	套索工具（再次按下切换套索与多边形套索）
+Magic tool	魔棒 / 对象选择工具
+Brush tool	画笔工具
+Smear tool (again switches its mode)	修饰工具（再次按下切换模式）
+Shape tool (again switches the shape)	形状工具（再次按下切换形状）
+Move tool	移动工具
+Crop tool	裁剪工具
+Gradient tool	渐变工具
+Next shape	下一个形状
+Type tool	文字工具
+Eyedropper tool	吸管工具
+Hand tool	抓手工具
+Zoom tool	缩放工具
+Cycle tool mode	切换工具模式
+Swap foreground and background	交换前景色与背景色
+Reset colors to black and white	将颜色重置为黑白
+Delete selection, layer or effect	删除选区、图层或效果
+Toggle painting on the mask	切换到蒙版绘画
+Move	移动
+Nudge	微移
+Scale	缩放
+Rotate	旋转
+Distort	扭曲
+Transform	变换
+Rectangular Marquee	矩形选框
+Rectangle Marquee	矩形选框
+Elliptical Marquee	椭圆选框
+Ellipse Marquee	椭圆选框
+Marquee	选框
+Lasso	套索
+Freehand Lasso	套索
+Polygonal Lasso	多边形套索
+Magic Wand	魔棒
+Object Selection	对象选择
+Brush	画笔
+Brush Strokes	画笔描绘
+Eraser	橡皮擦
+Spot Healing	污点修复
+Spot Healing Brush	污点修复画笔
+Clone Stamp	仿制图章
+Liquify	液化
+Blur	模糊
+Smudge	涂抹
+Dodge	减淡
+Burn	加深
+Gradient	渐变
+Rectangle	矩形
+Rounded Rectangle	圆角矩形
+Ellipse	椭圆
+Line	直线
+Shape	形状
+Type	文字
+Crop	裁剪
+Text	文字
+Eyedropper	吸管
+Hand	抓手
+Zoom	缩放
+Opacity	不透明度
+Strength	强度
+Size	大小
+Hardness	硬度
+Smoothing	平滑
+Aligned	对齐
+Sample all layers	对所有图层取样
+Tolerance	容差
+Contiguous	连续
+Edge	边缘
+Detect	检测方式
+Any subject	任意主体
+Person	人物
+Plain backdrop	纯色背景
+Linear	线性
+Radial	径向
+Foreground to transparent	前景色到透明
+Width	宽度
+Height	高度
+Corner radius	圆角半径
+Ratio	比例
+Free	不受约束
+Original	原始
+Sans	无衬线
+Bold	粗体
+Italic	斜体
+Text color	文字颜色
+Text Color	文字颜色
+Tracking	字距
+Leading	行距
+(Multiple)	（多种字体）
+Auto Select	自动选择
+Transform controls	变换控件
+No layer selected	未选择图层
+Moves every layer in the folder	移动组内所有图层
+This layer has no pixels	此图层没有像素
+Foreground Color	前景色
+Foreground color	前景色
+Background Color	背景色
+Background color	背景色
+Background	背景
+Transparent	透明
+White	白色
+Black	黑色
+Recent	最近文件
+Ready when you are	准备就绪
+Copy Image	复制图像
+Show in Folder	在文件夹中显示
+Close Others	关闭其他文档
+Recover Unsaved Work	恢复未保存的文档
+Recover	恢复
+Recovered	已恢复
+Unsaved Changes	未保存的更改
+Composa project	Composa 工程
+Images	图像
+Camera RAW	相机 RAW
+Color lookup tables	颜色查找表
+Color lookup table	颜色查找表
+Projects and images	工程与图像
+Save Project	保存工程
+Save Look	保存色彩预设
+Export Look	导出色彩预设
+Load Color Lookup Table	载入颜色查找表
+Couldn't save	无法保存
+Couldn't export	无法导出
+Couldn't save the look	无法保存色彩预设
+Import couldn't finish	无法完成导入
+Something went wrong	操作未能完成
+Finding the subject…	正在查找主体…
+Finding the object…	正在查找对象…
+Enhancing…	正在增强图像…
+Measuring…	正在计算…
+Copied 1 layer	已复制 1 个图层
+clipboard	剪贴板
+AI connected	AI 已连接
+Preset	预设
+Clipboard	剪贴板
+Relative	相对
+Anchor	定位
+Nearest Neighbor	邻近（保留硬边缘）
+Enhance	增强细节
+Constrain proportions	约束比例
+Resolution	分辨率
+pixels/inch	像素/英寸
+Resample	重新采样
+Quality	品质
+Export JPEG	导出 JPEG
+Top	上
+Bottom	下
+Left	左
+Right	右
+Based On	基于
+Trim Away	裁切边缘
+Instagram Square	Instagram 正方形
+Instagram Portrait	Instagram 竖版
+Instagram Story	Instagram 快拍
+YouTube Thumb	YouTube 缩略图
+A4 at 300 ppi	A4（300 像素/英寸）
+Photo 6000 × 4000	照片 6000 × 4000
+Exposure (EV)	曝光度（EV）
+Temperature	色温
+Tint	色调
+Offset	位移
+Gamma	灰度系数
+Brightness	亮度
+Contrast	对比度
+Amount	数量
+Roughness	粗糙度
+Radius	半径
+Angle	角度
+Distance	距离
+Uniform	平均分布
+Gaussian	高斯分布
+Monochromatic	单色
+Distribution	分布
+Input black	输入黑场
+Input white	输入白场
+Output black	输出黑场
+Output white	输出白场
+Channel	通道
+Hue	色相
+Saturation	饱和度
+Lightness	明度
+Luminosity	明度
+Luminance	明亮度
+Colorize	着色
+Range	范围
+Red	红色
+Green	绿色
+Blue	蓝色
+Yellow	黄色
+Magenta	洋红
+Cyan	青色
+Reds	红色
+Oranges	橙色
+Yellows	黄色
+Greens	绿色
+Cyans	青色
+Aquas	浅绿色
+Blues	蓝色
+Purples	紫色
+Magentas	洋红
+Shadows	阴影
+Midtones	中间调
+Highlights	高光
+Whites	白色色阶
+Blacks	黑色色阶
+Cyan / Red	青色 / 红色
+Magenta / Green	洋红 / 绿色
+Yellow / Blue	黄色 / 蓝色
+Preserve Luminosity	保持明度
+Use Foreground/Background	使用前景色/背景色
+Reverse	反向
+Load File	载入文件
+Vignette	晕影
+Vignette Color	晕影颜色
+Color	颜色
+Midpoint	中点
+Roundness	圆度
+Remove Distortion	移除扭曲
+Style	样式
+Brush Size	画笔大小
+Passes	绘制遍数
+Detail	细节
+Pixel Size	像素大小
+Text Size	文字大小
+Cell Size	网格单元大小
+Characters	字符
+Tones	色调级数
+Diffusion	扩散
+Density	密度
+Colors	颜色
+Dark	暗色
+Light	亮色
+Pixel Shape	像素形状
+Light on Dark	深色背景上的亮色
+Color Grading	颜色分级
+Color Mixer	混色器
+White Balance	白平衡
+Vibrance	自然饱和度
+Global	全局
+Overlap	重叠
+Blending	混合
+Balance	平衡
+Highlight Priority	高光优先
+Color Priority	颜色优先
+Paint Overlay	绘画叠加
+Effects	效果
+Texture	纹理
+Clarity	清晰度
+Dehaze	去除薄雾
+Glow	发光
+Spread	扩散范围
+Warmth	暖调
+Curve	曲线
+Parametric	参数曲线
+Lights	亮调
+Darks	暗调
+Refine Saturation	细化饱和度
+Point	点曲线
+Adjust	调整
+Sharpening	锐化
+Masking	蒙版
+Noise Reduction	减少杂色
+Smoothness	平滑度
+Optics	光学
+Remove Chromatic Aberration	删除色差
+Enable Lens Profile Corrections	启用镜头配置文件校正
+Distortion	扭曲度
+Vignetting	晕影
+Defringe	去边
+Purple Amount	紫色数量
+Purple Hue Low	紫色色相下限
+Purple Hue High	紫色色相上限
+Green Amount	绿色数量
+Green Hue Low	绿色色相下限
+Green Hue High	绿色色相上限
+Calibration	校准
+Process	处理版本
+Shadow Tint	阴影色调
+Red Primary	红原色
+Green Primary	绿原色
+Blue Primary	蓝原色
+Camera Raw Filter	Camera Raw 滤镜
+Fuzziness	颜色容差
+Position	位置
+Outside	外部
+Inside	内部
+Grid Color	网格颜色
+Gridline every	网格线间隔
+pixels	像素
+Subdivisions	子网格数
+Normal	正常
+Multiply	正片叠底
+Screen	滤色
+Overlay	叠加
+Darken	变暗
+Lighten	变亮
+Difference	差值
+Exclusion	排除
+Color Dodge	颜色减淡
+Color Burn	颜色加深
+Soft Light	柔光
+Hard Light	强光
+Linear Burn	线性加深
+Linear Dodge (Add)	线性减淡（添加）
+Vivid Light	亮光
+Linear Light	线性光
+Pin Light	点光
+Hard Mix	实色混合
+Subtract	减去
+Divide	划分
+Grain Extract	颗粒提取
+Grain Merge	颗粒合并
+Drop Shadow	投影
+Color Overlay	颜色叠加
+Inner Shadow	内阴影
+Outer Glow	外发光
+Inner Glow	内发光
+Stroke	描边
+Gaussian Blur	高斯模糊
+Motion Blur	动感模糊
+Add Noise	添加杂色
+Bloom / Glow	辉光 / 发光
+Dither	仿色
+Tonal Contrast	色调对比度
+Lens Correction	镜头校正
+Painterly	绘画风格
+Atkinson (Classic Mac)	Atkinson（经典 Mac）
+Halftone Dots	半调网点
+Halftone Lines	半调线条
+Halftone Diamonds	半调菱形
+Mac Patterns	Mac 图案
+Two Colors	双色
+Square	方形
+Round	圆形
+Colorist Wash	色彩晕染
+Fine Mono	细腻黑白
+Muted Chrome	柔和冷调
+Standard Slide	标准反转片
+Vivid Slide	鲜艳反转片
+Light Gray	浅灰色
+Light Blue	浅蓝色
+Light Red	浅红色
+Medium Blue	中蓝色
+Lines	实线
+Dashed Lines	虚线
+Dots	点线
+Duplicate Layer	复制图层
+Duplicate Layers	复制图层
+Rename	重命名
+Delete Mask	删除蒙版
+Move Out of Folder	移出图层组
+Add Mask	添加蒙版
+Reveal All (White)	显示全部（白色）
+Hide All (Black)	隐藏全部（黑色）
+Enable Mask	启用蒙版
+Disable Mask	停用蒙版
+Apply Mask	应用蒙版
+Select Mask	选择蒙版
+Select Pixels	选择像素
+Hide Layer	隐藏图层
+Show Layer	显示图层
+Move Selection Pixels	移动选区像素
+Duplicate Selection	复制选区
+Move Selection	移动选区
+Load Selection	载入选区
+Select	选择
+Blend Mode	混合模式
+New Guide	新建参考线
+Move Guide	移动参考线
+Delete Guide	删除参考线
+Reorder Layers	调整图层顺序
+Add Image	添加图像
+Change Text Style	更改文字样式
+Fill Text	填充文字
+Paste Layers	粘贴图层
+Paste Layer	粘贴图层
+Layer via Copy	通过拷贝的图层
+Import Photoshop File	导入 Photoshop 文件
+Import GIMP File	导入 GIMP 文件
+Change	调整
+Drag left or right	向左或向右拖动
+Fine steps	精细调整
+Hold Alt while dragging	按住 Alt 拖动
+Exact value	精确数值
+Double-click to type	双击输入
+Arrow keys or scroll wheel	使用方向键或鼠标滚轮
+Double-click, then Reset	双击后点击“重置”
+Dismiss	关闭提示
+Or in a terminal:	也可在终端中执行：
+Download	下载官方英文版
+Release notes	更新说明
+Skip this version	跳过此版本
+Install	安装
+Retry	重试
+Copied	已复制
+Center	居中
+Halation	光晕
+Soft	柔和
+Sharp	锐利
+Smear	修饰
+Sculpt	塑形
+HSV	HSV
+Spectrum	色谱
+Palette	调色板
+Hex	十六进制
+Hexadecimal	十六进制
+Color spectrum	色谱
+Color palette	调色板
+Layer	图层
+Layer 1	图层 1
+Folder	组
+Merged Layer	合并图层
+Pasted Layer	粘贴图层
+Untitled	未标题
+ copy	 副本
+blur	模糊
+Sharpen	锐化
+smudge	涂抹
+dodge	减淡
+burn	加深
+Master	全图
+Collapse History	折叠历史记录
+Expand History	展开历史记录
+Shift snaps to 15°	Shift 按 15° 对齐
+Arrow keys or scroll wheel turn by 1°	方向键或滚轮每次调整 1°
+turn it	旋转
+Transparent Pixels	透明像素
+Top Left Pixel	左上角像素颜色
+Bottom Right Pixel	右下角像素颜色
+Bloom	辉光
+Dot	圆点
+Impressionist	印象派
+Expressionist	表现主义
+Pointillist	点彩派
+stroke	描边
+drop shadow	投影
+color overlay	颜色叠加
+inner shadow	内阴影
+outer glow	外发光
+inner glow	内发光
+px	像素
+Toggle painting on the mask (pipe)	切换到蒙版绘画（竖线键）

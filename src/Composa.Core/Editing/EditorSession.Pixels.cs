@@ -494,7 +494,7 @@ public sealed partial class EditorSession
         if (style.Kind == ShapeKind.Line) throw new ArgumentException("A line is added with AddLine.", nameof(style));
         rect = SKRect.Create((float)Math.Round(rect.Left), (float)Math.Round(rect.Top), (float)Math.Round(rect.Width), (float)Math.Round(rect.Height));
         if (rect.Width < 1 || rect.Height < 1) return null;
-        return AddShapeLayer(style, rect, style.Kind == ShapeKind.Ellipse ? "Ellipse" : "Rectangle");
+        return AddShapeLayer(style, rect, DefaultNames.Text(style.Kind == ShapeKind.Ellipse ? "Ellipse" : "Rectangle"));
     }
 
     /// <summary>Adds a live line between two document points, <see cref="ShapeLineWidth"/> thick with round ends, in the foreground color.</summary>
@@ -516,7 +516,7 @@ public sealed partial class EditorSession
             StartX = (from.X - box.Left) / box.Width, StartY = (from.Y - box.Top) / box.Height,
             EndX = (to.X - box.Left) / box.Width, EndY = (to.Y - box.Top) / box.Height
         };
-        return AddShapeLayer(style, box, "Line");
+        return AddShapeLayer(style, box, DefaultNames.Text("Line"));
     }
 
     private Layer? AddShapeLayer(ShapeStyle style, SKRect rect, string stem)
@@ -607,14 +607,14 @@ public sealed partial class EditorSession
     /// Pastes as a new layer: where it was copied from when that still fits the canvas, otherwise centered. Layers
     /// copied whole come back complete instead; an image handed in from another app always pastes as pixels.
     /// </summary>
-    public Layer? Paste(ClipboardImage? image = null, string name = "Pasted Layer") => Paste(image, name, inPlace: false);
+    public Layer? Paste(ClipboardImage? image = null, string name = "Pasted Layer") => Paste(image, name == "Pasted Layer" ? DefaultNames.Text(name) : name, inPlace: false);
 
     /// <summary>
     /// Paste in Place: where it was copied from even when that lies partly outside the canvas, and layers copied
     /// whole keep their positions in another project too. Only what would land entirely off the canvas, or an image
     /// from another app, which has no place, is centered.
     /// </summary>
-    public Layer? PasteInPlace(ClipboardImage? image = null) => Paste(image, "Pasted Layer", inPlace: true);
+    public Layer? PasteInPlace(ClipboardImage? image = null) => Paste(image, DefaultNames.Text("Pasted Layer"), inPlace: true);
 
     private Layer? Paste(ClipboardImage? image, string name, bool inPlace)
     {
@@ -685,7 +685,7 @@ public sealed partial class EditorSession
         if (document.Selection is not { } selection || (image ??= Clipboard) == null) return null;
         var bounds = SelectionMask.Bounds(selection);
         var pixels = Pixels.Clone(image.Pixels);
-        var layer = Layer.Raster(document.UniqueName("Pasted Layer"), pixels,
+        var layer = Layer.Raster(document.UniqueName(DefaultNames.Text("Pasted Layer")), pixels,
             Math.Round((bounds.Left + bounds.Right - pixels.Width) / 2.0), Math.Round((bounds.Top + bounds.Bottom - pixels.Height) / 2.0));
         Apply("Paste Into", () =>
         {
@@ -706,7 +706,7 @@ public sealed partial class EditorSession
     {
         if (document.Selection == null) { DuplicateSelectedLayers(); return; }
         if (ActiveLayer is not { Pixels: not null } source || GrabLayer(source) is not { } image) return;
-        var layer = Layer.Raster(document.UniqueName("Layer"), image.Pixels, image.Origin.X, image.Origin.Y);
+        var layer = Layer.Raster(document.UniqueName(DefaultNames.Text("Layer")), image.Pixels, image.Origin.X, image.Origin.Y);
         Apply("Layer via Copy", () =>
         {
             document.InsertAboveActive(layer);

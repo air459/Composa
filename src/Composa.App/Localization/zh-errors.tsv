@@ -1,0 +1,178 @@
+has a layer mask	带有图层蒙版
+is clipped to the layer below	剪贴到下方图层
+is inside a group	位于图层组中
+reads the pixels around each pixel	依赖相邻像素
+changes from place to place	效果随位置变化
+Black and white with smooth, finely graded tones.	明暗过渡平滑、层次细腻的黑白效果。
+Softened color with restrained highlights and a cool cast.	柔和的色彩、收敛的高光，带有冷调。
+Natural, balanced color with a little extra contrast.	自然均衡的色彩，稍加增强对比度。
+Saturated color and strong contrast, as for landscapes.	饱满的色彩与强烈的对比度，适合风景照片。
+Earliest response. Hue, saturation and shadow tint move about half as far as Version 6.	最早的处理方式。色相、饱和度和阴影色调的调整幅度约为版本 6 的一半。
+A little stronger than Version 1. The sliders below still fall well short of the current look.	比版本 1 稍强，但下方参数的调整幅度仍低于当前处理版本。
+Firmer color than Version 2. Primary shifts stay gentler than the current process.	色彩比版本 2 更鲜明，原色调整仍比当前处理版本柔和。
+The 2012 response. Calibration reaches most of the strength used by Version 6.	2012 年的处理方式。校准强度接近版本 6。
+Close to the current process, with slightly softer primary and shadow shifts.	接近当前处理版本，原色与阴影调整稍柔和。
+Current default. The calibration sliders below apply at full strength.	当前默认处理版本，下方校准参数使用完整调整强度。
+Works on any subject. Edges are soft, and busy or low-contrast backgrounds can confuse it.	适用于各类主体，边缘较柔和；复杂或低对比度背景可能影响识别。
+Tuned for people: soft hair and edges. Weaker on anything that is not a person.	专为人物优化，可保留柔和的发丝与边缘；对其他主体的识别效果较弱。
+Invents plausible detail while enlarging a photo. Fine edges and textures come out crisp; faces and text can come out wrong.	放大照片时生成合理的新细节，使边缘与纹理更清晰；面部和文字可能出现偏差。
+Select a layer to paint on.	请选择要绘画的图层。
+Folders can't be painted on. Select a layer inside.	无法直接在图层组上绘画，请选择组内的图层。
+Adjustment layers have no pixels. Add a mask to paint on.	调整图层不包含像素，请添加蒙版后再绘画。
+This is live {0}. Rasterize it (Layer menu) to paint on it.	这是可编辑的{0:t}图层。请先在“图层”菜单中将其栅格化，再进行绘画。
+text	文字
+shape	形状
+The layer is hidden.	此图层已隐藏。
+Alt-click to set the clone source first.	请先按住 Alt 单击，设置仿制取样源。
+The Spot Healing Brush works on pixels, not masks.	污点修复画笔仅适用于像素图层，无法用于蒙版。
+The layer is too small to paint on.	此图层太小，无法绘画。
+That area is too large to heal in one stroke. Heal it in smaller strokes.	单次修复区域过大，请分成较小的笔触进行修复。
+The selection is too large for Content-Aware Fill. Select a smaller area (up to about 16 megapixels).	选区过大，无法执行内容识别填充。请选择较小区域（最多约 1,600 万像素）。
+That shape is too large. A shape can cover up to {0} megapixels.	形状过大，最多可覆盖 {0} 百万像素。
+The image could not be resampled.	无法重新采样图像。
+Revealing every layer would make the canvas {0} × {1}, more than the {2} pixels a side and {3} megapixels a canvas can be.	显示全部图层后，画布将达到 {0} × {1}，超过单边 {2} 像素或画布 {3} 百万像素的上限。
+The image could not be encoded.	无法编码图像。
+{0} could not be read ({1}). Supported formats are PNG, JPEG, WebP, BMP and GIF; HEIC, AVIF and TIFF open when ImageMagick is installed.	无法读取“{0}”（{1}）。支持 PNG、JPEG、WebP、BMP 和 GIF；安装 ImageMagick 后还可打开 HEIC、AVIF 和 TIFF。
+{0} is larger than the supported {1} pixels a side and {2} megapixels.	“{0}”超过单边 {1} 像素或总计 {2} 百万像素的支持上限。
+{0} could not be decoded ({1}).	无法解码“{0}”（{1}）。
+{0} could not be read: ImageMagick did not start.	无法读取“{0}”：ImageMagick 未能启动。
+{0} took too long to decode.	解码“{0}”超时。
+This is not a Composa project: it has no manifest.	这不是有效的 Composa 工程：缺少清单文件。
+The project's manifest is too large.	工程清单文件过大。
+The project's manifest is empty.	工程清单文件为空。
+This is not a Composa project.	这不是有效的 Composa 工程。
+This project uses format version {0}; this app supports up to version {1}.	此工程使用格式版本 {0}，当前应用最高支持版本 {1}。
+The project's canvas size is invalid.	工程的画布大小无效。
+The project refers to an unsafe path.	工程引用的文件路径不安全。
+An image inside the project is missing ({0}).	工程中的图像丢失（{0}）。
+A lookup table inside the project is missing.	工程中的颜色查找表丢失。
+A lookup table inside the project is too large.	工程中的颜色查找表过大。
+A lookup table inside the project is damaged.	工程中的颜色查找表已损坏。
+The project has too many layers.	工程中的图层过多。
+Layer "{0}" has no image.	图层“{0}”缺少图像。
+Adjustment layer "{0}" has no settings.	调整图层“{0}”缺少设置。
+A mask could not be encoded.	无法编码蒙版。
+A mask inside the project is damaged.	工程中的蒙版已损坏。
+This Photoshop file uses a layer compression method that isn't supported.	此 Photoshop 文件使用了不支持的图层压缩方式。
+Cropped to the canvas so the file fits in memory. Pixels outside the canvas weren't imported.	为使文件可载入内存，已裁切到画布范围；画布外的像素未导入。
+Folder blend mode "{0}" isn't supported. The folder will be pass-through.	不支持图层组混合模式“{0}”，将使用“穿透”。
+Blend mode "{0}" isn't supported and will be applied as Normal.	不支持混合模式“{0}”，将使用“正常”。
+Layer effects were discarded, so the appearance may differ.	图层效果未保留，外观可能有所不同。
+This adjustment type isn't supported and was skipped.	此调整类型不受支持，已跳过。
+Adjustment parameters may not match Photoshop exactly.	调整参数的效果可能与 Photoshop 不完全一致。
+The smart object was rasterized. Linked contents can't be edited.	智能对象已栅格化，无法编辑其链接内容。
+Gradient and pattern fills aren't supported; the layer was imported empty.	不支持渐变与图案填充，此图层已作为空白图层导入。
+Vector shape was rasterized to pixels.	矢量形状已栅格化为像素。
+The mask was unlinked from its layer in Photoshop; here it moves with the layer.	此蒙版在 Photoshop 中未与图层链接；在这里将随图层一起移动。
+This clipping mask's base isn't supported, so clipping was skipped.	此剪贴蒙版的基底不受支持，已跳过剪贴效果。
+This is not a Photoshop file.	这不是有效的 Photoshop 文件。
+This Photoshop file uses a format version Composa can't read.	此 Photoshop 文件使用了 Composa 无法读取的格式版本。
+Only 8-bit RGB Photoshop files can be imported.	仅支持导入每通道 8 位的 RGB Photoshop 文件。
+This Photoshop file uses an image compression method that isn't supported.	此 Photoshop 文件使用了不支持的图像压缩方式。
+Editable Photoshop text becomes pixels and can't be retyped.	可编辑的 Photoshop 文字已转换为像素，无法重新输入文字。
+Only the first text style was kept.	仅保留了第一种文字样式。
+The Photoshop text warp was omitted.	未保留 Photoshop 的文字变形效果。
+Faux bold or faux italic was omitted.	未保留仿粗体或仿斜体效果。
+Full justification was imported as left alignment.	两端对齐已转换为左对齐。
+The font "{0}" isn't installed, so the text is drawn with the default font.	未安装字体“{0}”，文字将使用默认字体显示。
+The Photoshop file could not be read. It may be damaged or incomplete.	无法读取 Photoshop 文件，文件可能已损坏或不完整。
+The Photoshop file is larger than Composa can hold: {0} pixels a side and {1} megapixels for any one layer, {2} megapixels of layers in all.	Photoshop 文件超过 Composa 的容量上限：单边 {0} 像素、每个图层 {1} 百万像素、所有图层合计 {2} 百万像素。
+The Photoshop stroke isn't supported on shape layers and was omitted.	形状图层不支持此 Photoshop 描边，已忽略。
+The rounded rectangle's corners differ; the largest radius was used for all four.	圆角矩形的四角半径不同，已统一使用最大半径。
+The decoded frame was not in the expected format.	解码后的图像格式不符合预期。
+The decoded frame was cut short.	解码后的图像数据不完整。
+The image is larger than the supported {0} pixels a side and {1} megapixels.	图像超过单边 {0} 像素或总计 {1} 百万像素的支持上限。
+{0} is a camera RAW file. Opening one needs ImageMagick (with its LibRaw delegate), which is not installed.	“{0}”是相机 RAW 文件。打开此文件需要安装支持 LibRaw 的 ImageMagick。
+{0} is an SVG file. Opening one needs ImageMagick, which is not installed.	“{0}”是 SVG 文件。打开此文件需要安装 ImageMagick。
+{0} would be larger than the supported {1} pixels a side and {2} megapixels, or than the document has room for.	“{0}”将超过单边 {1} 像素、总计 {2} 百万像素的支持上限，或超过文档剩余容量。
+The GIMP file is compressed with {0}, which Composa can't read. Save it from GIMP as .xcf or .xcf.gz.	此 GIMP 文件使用了 Composa 不支持的 {0} 压缩方式。请在 GIMP 中另存为 .xcf 或 .xcf.gz。
+The image	图像
+The file was saved by a GIMP newer than this version of Composa knows (format {0}), so anything added since may be missing.	此文件由较新版本的 GIMP 保存（格式 {0}），新增功能可能无法保留。
+The file keeps {0} pixels; Composa holds 8 bits per channel, so some precision was lost.	此文件使用 {0} 像素精度；Composa 使用每通道 8 位，因此会损失部分精度。
+The file keeps linear-light pixels; they were converted to sRGB.	文件中的线性光像素已转换为 sRGB。
+The indexed palette became RGB colors; the palette itself isn't kept.	索引调色板已转换为 RGB 颜色，原调色板未保留。
+The file carries a color profile, which Composa doesn't apply yet; colors are taken as sRGB.	文件包含颜色配置文件，但 Composa 暂不应用；颜色按 sRGB 处理。
+A saved channel (selection or alpha channel) was left out.	未保留一个已保存的通道（选区或 Alpha 通道）。
+{0} saved channels (selections or alpha channels) were left out.	未保留 {0} 个已保存的通道（选区或 Alpha 通道）。
+A path was left out; Composa has no paths.	未保留路径；Composa 不支持路径。
+{0} paths were left out; Composa has no paths.	未保留 {0} 条路径；Composa 不支持路径。
+One tile of the layer couldn't be read and is transparent.	图层的一个区块无法读取，已设为透明。
+{0} tiles of the layer couldn't be read and are transparent.	图层的 {0} 个区块无法读取，已设为透明。
+The layer's effect (a GIMP filter) can't be applied here and was dropped.	此图层效果（GIMP 滤镜）无法应用，未予保留。
+The layer's {0} effects (GIMP filters) can't be applied here and were dropped.	此图层的 {0} 个效果（GIMP 滤镜）无法应用，未予保留。
+The vector layer was imported as pixels; its shapes can't be edited here.	矢量图层已转换为像素，无法继续编辑其形状。
+The link layer was imported as pixels; it no longer follows its file.	链接图层已转换为像素，不再随源文件更新。
+Blend mode {0} isn't known and will be applied as Normal.	无法识别混合模式 {0}，将使用“正常”。
+Blend mode "{0}" has no exact equivalent; "{1}" is the closest.	混合模式“{0}”没有完全对应的模式，将使用最接近的“{1:t}”。
+GIMP blends this layer in linear light; here it's blended in sRGB, so the result may differ a little.	GIMP 在线性光空间中混合此图层；这里使用 sRGB，结果可能略有不同。
+GIMP blends this layer in LAB; here it's blended in sRGB, so the result may differ.	GIMP 在 LAB 空间中混合此图层；这里使用 sRGB，结果可能不同。
+The "{0}" compositing isn't supported; the layer composites as GIMP's Union does.	不支持“{0}”合成方式，将使用 GIMP 的“联合”方式。
+The model runtime did not load on this machine.	本机未能加载模型运行环境。
+The subject detection runtime did not load on this machine, so the plain backdrop was used instead.	本机未能加载主体检测运行环境，已改用纯色背景检测。
+The {0} model is not installed ({1}), so the plain backdrop was used instead.	未安装 {0} 模型（{1}），已改用纯色背景检测。
+The enlarging model is not installed ({0}).	未安装图像放大模型（{0}）。
+The {0} model is not installed: {1} is missing.	未安装 {0} 模型：缺少 {1}。
+{0} is not the {1} model Composa was built with, so it is not used.	{0} 与 Composa 要求的 {1} 模型不一致，因此未使用。
+Enlarging {0}×{1} pixels {2} times would make a layer of more than {3} megapixels, which is the most a layer can hold.	将 {0}×{1} 像素放大 {2} 倍后，图层将超过 {3} 百万像素的容量上限。
+The alpha could not be resampled.	无法重新采样 Alpha 通道。
+The sample count does not match the size.	采样数据数量与图像大小不一致。
+The bitmaps differ in size or format.	位图的大小或格式不一致。
+The bitmaps must be the same size.	位图大小必须一致。
+A stroke needs at least one point.	笔触至少需要一个控制点。
+A line is added with AddLine.	直线应通过直线工具添加。
+A lattice needs a cube or curves.	颜色查找表需要三维色彩网格或曲线数据。
+The cube does not match its size.	色彩网格数据与指定大小不一致。
+The curves do not match their size.	曲线数据与指定大小不一致。
+The domain is empty.	输入颜色范围为空。
+The file is larger than {0} MB, which no lookup table needs.	文件超过 {0} MB，超出颜色查找表的合理大小。
+a color comes before {0}.	颜色数据出现在 {0} 之前。
+{0} needs a whole number.	{0} 需要一个整数。
+LUT_3D_SIZE is given twice.	LUT_3D_SIZE 被重复指定。
+LUT_3D_SIZE must be between 2 and {0}.	LUT_3D_SIZE 必须介于 2 与 {0} 之间。
+LUT_1D_SIZE is given twice.	LUT_1D_SIZE 被重复指定。
+LUT_1D_SIZE must be between 2 and {0}.	LUT_1D_SIZE 必须介于 2 与 {0} 之间。
+{0} needs three numbers.	{0} 需要三个数值。
+{0} needs two numbers.	{0} 需要两个数值。
+"{0}" is not a .cube keyword.	“{0}”不是 .cube 文件的有效关键字。
+expected a color as three numbers.	应以三个数值表示一种颜色。
+more colors than the {0} the sizes call for.	颜色数量超过指定大小所需的 {0} 种颜色。
+Not a .cube file: it has no LUT_3D_SIZE or LUT_1D_SIZE line.	这不是有效的 .cube 文件：缺少 LUT_3D_SIZE 或 LUT_1D_SIZE。
+The file ends after {0} of the {1} colors its sizes call for.	文件不完整：仅包含指定大小所需 {1} 种颜色中的 {0} 种。
+DOMAIN_MAX must be above DOMAIN_MIN in every channel.	每个通道的 DOMAIN_MAX 必须大于 DOMAIN_MIN。
+expected whole numbers.	应使用整数。
+expected a color as three whole numbers.	应以三个整数表示一种颜色。
+more colors than the {0} input levels call for.	颜色数量超过 {0} 个输入级别所需的数量。
+Not a .3dl file: {0} colors are not a whole cube.	这不是有效的 .3dl 文件：{0} 种颜色无法组成完整的三维网格。
+The file ends after {0} of the {1} colors its {2} input levels call for.	文件不完整：{2} 个输入级别需要 {1} 种颜色，实际仅包含 {0} 种。
+The lookup table has {0} points per axis; at most {1} are supported.	颜色查找表的每个轴包含 {0} 个采样点，最多支持 {1} 个。
+Line {0}: {1}	第 {0} 行：{1:t}
+The lookup table was written by a newer Composa.	此颜色查找表由较新版本的 Composa 创建。
+The bake changed the grid's shape.	生成色彩预设时，采样网格的形状发生了变化。
+The look {0} is not embedded.	未找到内置色彩预设“{0}”。
+The {0} model answered with {1} values for {2}×{3} pixels.	{0} 模型为 {2}×{3} 像素返回了 {1} 个数值，数量不符合预期。
+The model answered a {0}×{1} tile with {2} values instead of {3}.	模型为 {0}×{1} 区块返回了 {2} 个数值，预期为 {3} 个。
+This GIMP file stores its pixels in a precision Composa can't read.	此 GIMP 文件的像素精度不受 Composa 支持。
+This GIMP file uses a tile compression Composa can't read.	此 GIMP 文件使用了不支持的区块压缩方式。
+The text was imported as pixels; it can't be retyped here.	文字已转换为像素导入，无法继续编辑文字内容。
+The text mixes fonts or colors, so it was imported as pixels and can't be retyped here.	文字包含混合字体或颜色，已转换为像素导入，无法继续编辑文字内容。
+Justified text is set flush left here.	两端对齐的文字已转换为左对齐。
+The font "{0}" isn't installed; the text is shown in a fallback until it is.	未安装字体“{0}”，当前使用替代字体显示。
+This is not a GIMP file.	这不是有效的 GIMP 文件。
+The GIMP file could not be read. It may be damaged or incomplete.	无法读取 GIMP 文件，文件可能已损坏或不完整。
+The GIMP file is larger than Composa can hold: {0} pixels a side and {1} megapixels for any one layer, {2} megapixels of layers in all.	GIMP 文件超过 Composa 的容量上限：单边 {0} 像素、每个图层 {1} 百万像素、所有图层合计 {2} 百万像素。
+This release has no list of checksums, so a download could not be checked. Download it from the release page instead.	此版本未提供校验值列表，无法验证下载文件。请从发布页面手动下载。
+The release's list of checksums does not mention {0}, so it could not be checked. Download it from the release page instead.	校验值列表中未包含 {0}，无法验证文件。请从发布页面手动下载。
+The downloaded file did not match the release's checksum, so it was deleted. Try again, or download it from the release page.	下载文件的校验值与发布记录不一致，已删除。请重试，或从发布页面手动下载。
+The download stalled: nothing arrived for {0} seconds. Try again later.	下载已停滞：连续 {0} 秒未接收到数据。请稍后重试。
+GitHub no longer has this file. The release page may have a newer one.	GitHub 上已没有此文件，发布页面可能提供了更新版本。
+GitHub refused the download ({0} {1}). Try again later.	GitHub 拒绝了下载请求（{0} {1}），请稍后重试。
+Could not reach GitHub. Check the connection and try again.	无法连接 GitHub，请检查网络后重试。
+The connection broke off before the download finished. Try again.	下载完成前连接已中断，请重试。
+There is not enough space in {0} for the download.	{0} 没有足够空间保存下载文件。
+Composa cannot write to {0}.	Composa 无法写入 {0}。
+Composa could not write the download to {0}: {1}	Composa 无法将下载文件保存到 {0}：{1:t}
+The download failed: {0}: {1}	下载失败：{0}：{1:t}
+No software installer opened {0}. Install it from a terminal with the command in the update strip.	软件安装程序未能打开 {0}。请使用更新提示中的命令，在终端中安装。
+{0} does not come from Composa's own release page, so it was not downloaded.	{0} 并非来自 Composa 的官方发布页面，因此未下载。
+{0} is no longer in {1}.	{1} 中已没有 {0}。
+Composa {0} was installed through your package manager, which is where updates come from. Use it to upgrade, rather than downloading a build that it does not know about.	Composa {0} 由系统软件包管理器安装，请使用该管理器进行更新。
