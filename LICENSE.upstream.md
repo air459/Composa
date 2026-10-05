@@ -1,8 +1,10 @@
 MIT License
 
 Copyright (c) 2026 Dennis van der Stelt
-Copyright (c) 2026 Composa-Chinese contributors (Simplified Chinese localization)
-Copyright (c) 2026 Wonder Assembly LLC
+
+Portions of the image-processing math (tone curve interpolation, exposure and
+levels mapping) follow the macOS app Compositor,
+Copyright (c) 2026 Wonder Assembly LLC, released under the MIT License.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
