@@ -11,29 +11,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Setup .NET 10
-      uses: actions/setup-dotnet@v5
-      with:
-        dotnet-version: '10.0.x'
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.x'
 
-    - name: Restore dependencies
-      run: dotnet restore
+      - name: Publish Linux x64
+        run: |
+          dotnet publish src/Composa.App/Composa.App.csproj \
+            --configuration Release \
+            --runtime linux-x64 \
+            --self-contained true \
+            --output ./publish/linux-x64 \
+            -p:PublishSingleFile=true \
+            -p:UseAppHost=true \
+            -p:DebugType=none
 
-    - name: Publish Linux x64
-      run: |
-        dotnet publish \
-          --configuration Release \
-          --runtime linux-x64 \
-          --self-contained true \
-          --output ./publish/linux-x64 \
-          -p:PublishSingleFile=true \
-          -p:DebugType=none
-
-    - name: Upload artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: linux-x64-publish
-        path: publish/linux-x64/**
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Composa.App-linux-x64
+          path: publish/linux-x64/**
